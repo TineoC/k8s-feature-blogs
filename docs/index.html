@@ -53,6 +53,8 @@
 
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
   .stat { background: var(--color-muted); border: 1px solid var(--color-border); border-radius: 10px; padding: var(--space-2) var(--space-3); }
+  .stat-total { border-color: var(--color-accent); }
+  .stat-total .stat-num { color: var(--color-accent); }
   .stat-num { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; }
   .stat-label { font-size: 0.75rem; color: var(--color-foreground); opacity: 0.75; display: flex; align-items: center; margin-top: 4px; }
 
@@ -133,9 +135,9 @@
 </head>
 <body>
 <h1>Kubernetes v1.37 Feature Blog Status</h1>
-<div class="meta">Last run: <strong>2026-08-03 14:58 UTC</strong> &middot; source: <a href="https://github.com/orgs/kubernetes/projects/264/views/5" target="_blank" rel="noopener">Release Tracking board, view 5</a> &middot; rebuilds every 6h via GitHub Actions</div>
+<div class="meta">Last run: <strong>2026-08-03 15:12 UTC</strong> &middot; source: <a href="https://github.com/orgs/kubernetes/projects/264/views/5" target="_blank" rel="noopener">Release Tracking board, view 5</a> &middot; rebuilds every 6h via GitHub Actions</div>
 
-<div class="stats"><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#22C55E"></span>Ready for review</div></div><div class="stat"><div class="stat-num">9</div><div class="stat-label"><span class="dot" style="background:#F59E0B"></span>Review in progress</div></div><div class="stat"><div class="stat-num">4</div><div class="stat-label"><span class="dot" style="background:#A78BFA"></span>Draft</div></div><div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="dot" style="background:#EF4444"></span>No content</div></div><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#94A3B8"></span>Placeholder</div></div></div>
+<div class="stats"><div class="stat stat-total"><div class="stat-num">20</div><div class="stat-label">Total blogs</div></div><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#22C55E"></span>Ready for review</div></div><div class="stat"><div class="stat-num">9</div><div class="stat-label"><span class="dot" style="background:#F59E0B"></span>Review in progress</div></div><div class="stat"><div class="stat-num">4</div><div class="stat-label"><span class="dot" style="background:#A78BFA"></span>Draft</div></div><div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="dot" style="background:#EF4444"></span>No content</div></div><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#94A3B8"></span>Placeholder</div></div></div>
 
 <div class="controls">
   <div class="controls-top">

@@ -298,7 +298,10 @@ def render_html(data):
     stage_group = chip_group_html("stage", "Stage", stage_values)
     editor_group = chip_group_html("editor", "Comms Editor", editor_values)
 
-    summary_cells = "".join(
+    summary_cells = (
+        f'<div class="stat stat-total"><div class="stat-num">{len(open_rows)}</div>'
+        '<div class="stat-label">Total blogs</div></div>'
+    ) + "".join(
         f'<div class="stat"><div class="stat-num">{count}</div><div class="stat-label">'
         f'<span class="dot" style="background:{status_dot_color(status)}"></span>{status}</div></div>'
         for status, count in sorted(open_summary.items(), key=lambda kv: status_sort_key(kv[0]))
@@ -380,6 +383,8 @@ def render_html(data):
 
   .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }}
   .stat {{ background: var(--color-muted); border: 1px solid var(--color-border); border-radius: 10px; padding: var(--space-2) var(--space-3); }}
+  .stat-total {{ border-color: var(--color-accent); }}
+  .stat-total .stat-num {{ color: var(--color-accent); }}
   .stat-num {{ font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; }}
   .stat-label {{ font-size: 0.75rem; color: var(--color-foreground); opacity: 0.75; display: flex; align-items: center; margin-top: 4px; }}
 
