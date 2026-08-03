@@ -15,6 +15,15 @@ WEBSITE_REPO = "kubernetes/website"
 # the -status: exclusion on the project's "Comms - Feature Blogs" view.
 UNTRACKED_STATUSES = {"Removed from Milestone", "Deferred"}
 
+# Blog Status values meaning the KEP owner opted out of a feature blog --
+# mirrors the -blog-status: exclusion on that same view.
+OPTED_OUT_BLOG_STATUSES = {
+    "Opted-Out",
+    "Opted-Out (done before)",
+    "Opted-Out (no answer)",
+    "Opted-out (Removed or Deferred)",
+}
+
 
 def run_gh(args):
     result = subprocess.run(["gh"] + args, capture_output=True, text=True)
@@ -88,9 +97,14 @@ def main():
             continue
         if item.get("status") in UNTRACKED_STATUSES:
             continue
+        if item.get("blog Status") in OPTED_OUT_BLOG_STATUSES:
+            continue
+        content = item.get("content") or {}
         pr_to_keps[pr_url].append({
             "number": item.get("issue Number", ""),
             "title": item.get("title", "untitled"),
+            "tracking_url": content.get("url", ""),
+            "docs_pr": item.get("docs PR", ""),
         })
         for bucket, key in ((pr_to_sigs, "sIG"), (pr_to_editors, "comms Editor"), (pr_to_stages, "stage")):
             value = item.get(key)
@@ -359,6 +373,7 @@ def render_html(data):
     <label class="group-label" for="group-select">Group by</label>
     <select class="group-select" id="group-select">
       <option value="none">None</option>
+      <option value="pr_number">Blog PR</option>
       <option value="status">Status</option>
       <option value="sig">SIG</option>
       <option value="stage">Stage</option>
@@ -371,7 +386,7 @@ def render_html(data):
 
 <div class="table-wrap">
 <table id="pr-table">
-  <thead><tr><th>PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th></tr></thead>
+  <thead><tr><th>k/enhancements issue</th><th>k/website docs PR</th><th>k/website blog PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th></tr></thead>
   <tbody id="pr-tbody"></tbody>
 </table>
 </div>
@@ -404,8 +419,20 @@ def render_html(data):
     }}).join('');
   }}
 
+  function urlLinks(keps, field, label) {{
+    return keps.map(function (k) {{
+      var url = k[field];
+      if (!url) return '<span class="kep-link">&mdash;</span>';
+      var num = url.split('/').pop();
+      var text = label + (num ? ' #' + num : '');
+      return '<a class="kep-link" href="' + url + '" target="_blank" rel="noopener">' + escapeHtml(text) + '</a>';
+    }}).join('');
+  }}
+
   function rowHtml(r) {{
     return '<tr class="status-' + r.status_slug + (r.is_closed ? ' is-closed' : '') + '">' +
+      '<td>' + urlLinks(r.keps, 'tracking_url', 'k/enhancements') + '</td>' +
+      '<td>' + urlLinks(r.keps, 'docs_pr', 'k/website') + '</td>' +
       '<td class="mono"><a href="' + r.pr_url + '" target="_blank" rel="noopener">#' + r.pr_number + '</a></td>' +
       '<td>' + kepLinks(r.keps) + '</td>' +
       '<td>' + (escapeHtml(r.sig) || '&mdash;') + '</td>' +
@@ -418,7 +445,7 @@ def render_html(data):
   }}
 
   function groupHeaderHtml(label, count) {{
-    return '<tr class="group-header"><td colspan="8">' + escapeHtml(label || '(none)') + ' (' + count + ')</td></tr>';
+    return '<tr class="group-header"><td colspan="10">' + escapeHtml(label || '(none)') + ' (' + count + ')</td></tr>';
   }}
 
   function matchesRow(r, term) {{
@@ -445,9 +472,10 @@ def render_html(data):
         if (!groups[key]) {{ groups[key] = []; order.push(key); }}
         groups[key].push(r);
       }});
-      order.sort();
+      order.sort(groupBy === 'pr_number' ? function (a, b) {{ return a - b; }} : undefined);
       html = order.map(function (key) {{
-        return groupHeaderHtml(key, groups[key].length) + groups[key].map(rowHtml).join('');
+        var label = groupBy === 'pr_number' ? '#' + key : key;
+        return groupHeaderHtml(label, groups[key].length) + groups[key].map(rowHtml).join('');
       }}).join('');
     }}
 
