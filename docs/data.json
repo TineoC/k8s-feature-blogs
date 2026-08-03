@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-03 15:56 UTC",
+  "generated_at": "2026-08-03 19:12 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 3,
-    "Review in progress": 9,
-    "Draft": 4,
+    "Review in progress": 11,
     "Ready for review": 2,
+    "Draft": 2,
     "Placeholder": 2
   },
   "rows": [
@@ -128,7 +128,7 @@
     {
       "pr_number": 56283,
       "pr_url": "https://github.com/kubernetes/website/pull/56283",
-      "pr_title": "[WIP] memoryqos v1.37 blog",
+      "pr_title": "blog post v1.37 MemoryQoS Graduates to Beta",
       "keps": [
         {
           "number": "2570",
@@ -140,12 +140,12 @@
       "sig": "sig-node",
       "comms_editor": "TineoC",
       "stage": "Beta",
-      "publish_date": "2026-07-28",
+      "publish_date": "",
       "published": "Draft",
       "additions": 135,
       "review_count": 3,
       "comment_count": 6,
-      "status": "Draft",
+      "status": "Review in progress",
       "is_closed": false
     },
     {
@@ -203,7 +203,7 @@
     {
       "pr_number": 56316,
       "pr_url": "https://github.com/kubernetes/website/pull/56316",
-      "pr_title": "[WIP] Feature blog: etcd RangeStream (Kubernetes v1.37)",
+      "pr_title": "Feature blog: etcd RangeStream (Kubernetes v1.37)",
       "keps": [
         {
           "number": "5966",
@@ -217,10 +217,10 @@
       "stage": "Beta",
       "publish_date": "",
       "published": "Draft",
-      "additions": 76,
+      "additions": 82,
       "review_count": 2,
-      "comment_count": 5,
-      "status": "Draft",
+      "comment_count": 6,
+      "status": "Review in progress",
       "is_closed": false
     },
     {
@@ -518,7 +518,7 @@
       "publish_date": "XXX",
       "published": "Not yet published",
       "additions": 103,
-      "review_count": 1,
+      "review_count": 3,
       "comment_count": 6,
       "status": "Review in progress",
       "is_closed": false
