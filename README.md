@@ -20,7 +20,9 @@ the workflow needs a Personal Access Token with `project` (read) and `repo`
 ## Manual rebuild
 
 ```
-python3 scripts/build.py
+make build   # regenerate docs/index.html + docs/data.json
+make serve   # build + serve docs/ locally at :8000
+make clean   # remove generated output
 ```
 
-Requires `gh` CLI authenticated with the scopes above.
+Requires `gh` CLI authenticated with the scopes above, and `python3`.
