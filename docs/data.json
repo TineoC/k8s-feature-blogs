@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03 13:57 UTC",
+  "generated_at": "2026-08-03 14:04 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 5,
@@ -18,7 +18,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/53088",
       "pr_title": "Add blog article about for volume limit aware autoscaling",
       "keps": [
-        "Integrate CSI Volume attach limits with cluster autoscaler"
+        {
+          "number": "5030",
+          "title": "Integrate CSI Volume attach limits with cluster autoscaler"
+        }
       ],
       "sig": "sig-autoscaling",
       "comms_editor": "kirti763",
@@ -36,7 +39,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56207",
       "pr_title": "Add blog post for KEP-5541: PVC last used time",
       "keps": [
-        "Report last used time on a PVC"
+        {
+          "number": "5541",
+          "title": "Report last used time on a PVC"
+        }
       ],
       "sig": "sig-storage",
       "comms_editor": "troy0820",
@@ -54,13 +60,34 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56215",
       "pr_title": "[WIP] Add Workload Aware Scheduling v1.37 blog post placeholder",
       "keps": [
-        "Gang Scheduling Support in Kubernetes",
-        "KEP-5732: Topology-aware workload scheduling",
-        "CompositePodGroup API",
-        "Workload-aware preemption",
-        "WAS: Controller Integration APIs",
-        "WAS: Integrate Workload APIs with Job controller",
-        "DRA: ResourceClaim Support for Workloads"
+        {
+          "number": "4671",
+          "title": "Gang Scheduling Support in Kubernetes"
+        },
+        {
+          "number": "5732",
+          "title": "KEP-5732: Topology-aware workload scheduling"
+        },
+        {
+          "number": "6012",
+          "title": "CompositePodGroup API"
+        },
+        {
+          "number": "5710",
+          "title": "Workload-aware preemption"
+        },
+        {
+          "number": "6089",
+          "title": "WAS: Controller Integration APIs"
+        },
+        {
+          "number": "5547",
+          "title": "WAS: Integrate Workload APIs with Job controller"
+        },
+        {
+          "number": "5729",
+          "title": "DRA: ResourceClaim Support for Workloads"
+        }
       ],
       "sig": "sig-scheduling; sig-apps",
       "comms_editor": "TineoC",
@@ -78,7 +105,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56229",
       "pr_title": "[WIP] [KEP-4563] feature blog for EvictionRequest API",
       "keps": [
-        "EvictionRequest API"
+        {
+          "number": "4563",
+          "title": "EvictionRequest API"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -96,7 +126,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56233",
       "pr_title": "[WIP] Add blog post for KEP-5474: Enable Writable Cgroups",
       "keps": [
-        "Enable Writable cgroups for unprivileged containers"
+        {
+          "number": "5474",
+          "title": "Enable Writable cgroups for unprivileged containers"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -114,7 +147,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56234",
       "pr_title": "[WIP][KEP-6122][BLOG] Configurable Scaling Delay blog post",
       "keps": [
-        "Support Configurable Scaling Delay with Pod Resource Exposure"
+        {
+          "number": "6122",
+          "title": "Support Configurable Scaling Delay with Pod Resource Exposure"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -132,7 +168,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56249",
       "pr_title": "[WIP] Add blog post for KEP-5554: InPlacePodVerticalScalingExclusiveCPUs",
       "keps": [
-        "Support In place update pod resources alongside static cpu manager policy"
+        {
+          "number": "5554",
+          "title": "Support In place update pod resources alongside static cpu manager policy"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -150,7 +189,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56263",
       "pr_title": "[WIP] KEP-5936: Add a feature blog for atomic volume user fields beta in 1.38",
       "keps": [
-        "Add user fields to atomic write volumes"
+        {
+          "number": "5936",
+          "title": "Add user fields to atomic write volumes"
+        }
       ],
       "sig": "sig-storage",
       "comms_editor": "",
@@ -168,7 +210,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56267",
       "pr_title": "Node Lifecycle Conditions Blog",
       "keps": [
-        "Specialized Lifecycle Management"
+        {
+          "number": "5683",
+          "title": "Specialized Lifecycle Management"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "TineoC",
@@ -186,7 +231,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56283",
       "pr_title": "[WIP] memoryqos v1.37 blog",
       "keps": [
-        "Support memory qos with cgroups v2"
+        {
+          "number": "2570",
+          "title": "Support memory qos with cgroups v2"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "TineoC",
@@ -204,7 +252,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56290",
       "pr_title": "KEP-2021: Scale Workloads to Zero with HorizontalPodAutoscaler",
       "keps": [
-        "Support scaling to/from zero pods for object/external metrics"
+        {
+          "number": "2021",
+          "title": "Support scaling to/from zero pods for object/external metrics"
+        }
       ],
       "sig": "sig-autoscaling",
       "comms_editor": "RinkiyaKeDad",
@@ -222,7 +273,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56297",
       "pr_title": "Add blog post: \"Kubernetes v1.37: KYAML graduates to stable\"",
       "keps": [
-        "KYAML"
+        {
+          "number": "5295",
+          "title": "KYAML"
+        }
       ],
       "sig": "sig-cli",
       "comms_editor": "",
@@ -240,8 +294,14 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56312",
       "pr_title": "[WIP] Pod Certificate / Cluster Trust Bundleblog Blog",
       "keps": [
-        "ClusterTrustBundles (previously Trust Anchor Sets)",
-        "Pod Certificates"
+        {
+          "number": "3257",
+          "title": "ClusterTrustBundles (previously Trust Anchor Sets)"
+        },
+        {
+          "number": "4317",
+          "title": "Pod Certificates"
+        }
       ],
       "sig": "sig-auth",
       "comms_editor": "troy0820",
@@ -259,7 +319,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56316",
       "pr_title": "[WIP] Feature blog: etcd RangeStream (Kubernetes v1.37)",
       "keps": [
-        "etcd RangeStream"
+        {
+          "number": "5966",
+          "title": "etcd RangeStream"
+        }
       ],
       "sig": "sig-etcd",
       "comms_editor": "kirti763",
@@ -277,12 +340,30 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56351",
       "pr_title": "Kubernetes v1.37 DRA feature blog",
       "keps": [
-        "DRA: Node Allocatable Resource Requests",
-        "DRA: Resource Availability Visibility",
-        "DRA: Optional Node Preparation",
-        "DRA: Standard numaNode Device Attribute",
-        "DRA: Handle extended resource requests via DRA Driver",
-        "DRA: List Types for Attributes"
+        {
+          "number": "5517",
+          "title": "DRA: Node Allocatable Resource Requests"
+        },
+        {
+          "number": "5677",
+          "title": "DRA: Resource Availability Visibility"
+        },
+        {
+          "number": "5945",
+          "title": "DRA: Optional Node Preparation"
+        },
+        {
+          "number": "6072",
+          "title": "DRA: Standard numaNode Device Attribute"
+        },
+        {
+          "number": "5004",
+          "title": "DRA: Handle extended resource requests via DRA Driver"
+        },
+        {
+          "number": "5491",
+          "title": "DRA: List Types for Attributes"
+        }
       ],
       "sig": "sig-scheduling; sig-node",
       "comms_editor": "SwathiR03",
@@ -300,7 +381,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56360",
       "pr_title": "KEP-5526: Pod Level Resource Managers blog 1.37",
       "keps": [
-        "Pod Level Resource Managers"
+        {
+          "number": "5526",
+          "title": "Pod Level Resource Managers"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "SwathiR03",
@@ -318,7 +402,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56401",
       "pr_title": "[WIP] KEP-6060: Blog Entry",
       "keps": [
-        "API Server Authentication to Webhooks"
+        {
+          "number": "6060",
+          "title": "API Server Authentication to Webhooks"
+        }
       ],
       "sig": "sig-auth",
       "comms_editor": "troy0820",
@@ -336,7 +423,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56420",
       "pr_title": "blog for KEP-2033: Kubelet-in-UserNS, aka Rootless mode",
       "keps": [
-        "sig-node: Kubelet-in-UserNS, aka Rootless mode"
+        {
+          "number": "2033",
+          "title": "sig-node: Kubelet-in-UserNS, aka Rootless mode"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "RinkiyaKeDad",
@@ -354,7 +444,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56422",
       "pr_title": "KEP-5495: blog post about IPVS deprecation",
       "keps": [
-        "Remove ipvs mode in kube-proxy"
+        {
+          "number": "5495",
+          "title": "Remove ipvs mode in kube-proxy"
+        }
       ],
       "sig": "sig-network",
       "comms_editor": "kirti763",
@@ -372,7 +465,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56425",
       "pr_title": "[WIP] Add blog for reworked volume health",
       "keps": [
-        "PV Health Monitor"
+        {
+          "number": "1432",
+          "title": "PV Health Monitor"
+        }
       ],
       "sig": "sig-storage",
       "comms_editor": "RinkiyaKeDad",
@@ -390,7 +486,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56432",
       "pr_title": "[Placeholder] Blog for KEP-6063: per-pod PID limit alpha",
       "keps": [
-        "Configuration for Per-Pod PID Limit"
+        {
+          "number": "6063",
+          "title": "Configuration for Per-Pod PID Limit"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -408,7 +507,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56436",
       "pr_title": "[Placeholder] blog for KEP-4939: Support TLS Credentials in gRPC Probe",
       "keps": [
-        "Support TLS Credentials in gRPC Probe"
+        {
+          "number": "4939",
+          "title": "Support TLS Credentials in gRPC Probe"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -426,7 +528,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56437",
       "pr_title": "[Placeholder] blog for KEP-5999: HTTP/2 cleartext (h2c) for container Probes",
       "keps": [
-        "HTTP/2 cleartext (h2c) for container probes"
+        {
+          "number": "5999",
+          "title": "HTTP/2 cleartext (h2c) for container probes"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -444,7 +549,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56446",
       "pr_title": "Add blog for KEP-5207: metrics.k8s.io/v1 GA",
       "keps": [
-        "metrics.k8s.io API definition"
+        {
+          "number": "5207",
+          "title": "metrics.k8s.io API definition"
+        }
       ],
       "sig": "sig-instrumentation",
       "comms_editor": "SophiaUgo",
@@ -462,7 +570,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56449",
       "pr_title": "[WIP] Add post-release blog for KEP-2837",
       "keps": [
-        "Pod level resources"
+        {
+          "number": "",
+          "title": "Pod level resources"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -480,7 +591,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56453",
       "pr_title": "Placeholder PR for the Conditional Authorization blog post for 1.37",
       "keps": [
-        "Conditional Authorization"
+        {
+          "number": "5681",
+          "title": "Conditional Authorization"
+        }
       ],
       "sig": "sig-auth",
       "comms_editor": "",
@@ -498,7 +612,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56455",
       "pr_title": "Blog post for Native Histograms",
       "keps": [
-        "Native Histogram Support for Kubernetes Metrics"
+        {
+          "number": "5808",
+          "title": "Native Histogram Support for Kubernetes Metrics"
+        }
       ],
       "sig": "sig-instrumentation",
       "comms_editor": "SophiaUgo",
@@ -516,7 +633,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56457",
       "pr_title": "[Placeholder] Blog for KEP-5855: Add bind mount options to VolumeMount",
       "keps": [
-        "Add bind mount options (noexec, nodev, nosuid) support on volumeMounts"
+        {
+          "number": "5855",
+          "title": "Add bind mount options (noexec, nodev, nosuid) support on volumeMounts"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "SophiaUgo",
@@ -534,8 +654,14 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56458",
       "pr_title": "[Placeholder] Blog for KEP-6035: Exec session identity propagation",
       "keps": [
-        "Add stickyBit support for emptydir volumes",
-        "Exec session identity propagation"
+        {
+          "number": "5502",
+          "title": "Add stickyBit support for emptydir volumes"
+        },
+        {
+          "number": "6035",
+          "title": "Exec session identity propagation"
+        }
       ],
       "sig": "sig-storage; sig-node",
       "comms_editor": "RinkiyaKeDad",
@@ -553,7 +679,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56461",
       "pr_title": "Blog for KEP-5836: Scheduler Preemption for In-Place Pod Resize (alpha)",
       "keps": [
-        "Scheduler Preemption for In-Place Pod Resize"
+        {
+          "number": "5836",
+          "title": "Scheduler Preemption for In-Place Pod Resize"
+        }
       ],
       "sig": "sig-scheduling",
       "comms_editor": "SwathiR03",
@@ -571,7 +700,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56462",
       "pr_title": "[Placeholder] Blog for KEP-6030: Dynamic Resize of Memory-Backed Volumes",
       "keps": [
-        "Dynamic resize of memory-backed volumes"
+        {
+          "number": "6030",
+          "title": "Dynamic resize of memory-backed volumes"
+        }
       ],
       "sig": "sig-node",
       "comms_editor": "",
@@ -589,7 +721,10 @@
       "pr_url": "https://github.com/kubernetes/website/pull/56483",
       "pr_title": "Add post-release blog for KEP-4192: In Tree Storage Version Migration",
       "keps": [
-        "Move Storage Version Migrator in-tree"
+        {
+          "number": "4192",
+          "title": "Move Storage Version Migrator in-tree"
+        }
       ],
       "sig": "sig-api-machinery",
       "comms_editor": "SwathiR03",

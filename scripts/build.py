@@ -82,7 +82,10 @@ def main():
         pr_url = item.get("blog PR")
         if not pr_url:
             continue
-        pr_to_keps[pr_url].append(item.get("title", "untitled"))
+        pr_to_keps[pr_url].append({
+            "number": item.get("issue Number", ""),
+            "title": item.get("title", "untitled"),
+        })
         for bucket, key in ((pr_to_sigs, "sIG"), (pr_to_editors, "comms Editor"), (pr_to_stages, "stage")):
             value = item.get(key)
             if value and value not in bucket[pr_url]:
@@ -174,6 +177,9 @@ def status_dot_color(status):
     return STATUS_DOT.get(status.replace(" (closed)", ""), "#94A3B8")
 
 
+KEP_BASE_URL = "https://k8s.dev/resources/keps/"
+
+
 def render_html(data):
     all_rows = sorted(data["rows"], key=lambda r: (status_sort_key(r["status"]), r["pr_number"]))
     open_rows = [r for r in all_rows if not r.get("is_closed")]
@@ -202,22 +208,26 @@ def render_html(data):
         for status, count in sorted(open_summary.items(), key=lambda kv: status_sort_key(kv[0]))
     )
 
-    def render_row(r):
-        search_blob = " ".join([r["pr_title"], *r["keps"], r["sig"], r["comms_editor"]]).lower().replace('"', "&quot;")
-        return f'''<tr class="status-{slugify(r["status"])}{' is-closed' if r.get('is_closed') else ''}" data-status="{slugify(r["status"])}" data-closed="{'1' if r.get('is_closed') else '0'}" data-search="{search_blob}">
-      <td class="mono"><a href="{r['pr_url']}" target="_blank" rel="noopener">#{r['pr_number']}</a></td>
-      <td>{"; ".join(r['keps'])}</td>
-      <td>{r['sig'] or '&mdash;'}</td>
-      <td>{r['comms_editor'] or '&mdash;'}</td>
-      <td>{r['stage'] or '&mdash;'}</td>
-      <td><span class="status-badge"><span class="dot" style="background:{status_dot_color(r['status'])}"></span>{r['status']}</span></td>
-      <td class="mono">{r['publish_date'] or '&mdash;'}</td>
-      <td>{r['published']}</td>
-      <td class="mono num">{r['additions']}</td>
-      <td class="mono num">{r['review_count']} / {r['comment_count']}</td>
-    </tr>'''
-
-    table_rows = "".join(render_row(r) for r in all_rows)
+    # Table body is rendered client-side (see <script> below) from ROWS_JSON so the
+    # group-by control can re-layout rows without a server round trip.
+    rows_json = json.dumps([
+        {
+            "pr_number": r["pr_number"],
+            "pr_url": r["pr_url"],
+            "pr_title": r["pr_title"],
+            "keps": r["keps"],
+            "sig": r["sig"],
+            "comms_editor": r["comms_editor"],
+            "stage": r["stage"],
+            "status": r["status"],
+            "status_slug": slugify(r["status"]),
+            "dot_color": status_dot_color(r["status"]),
+            "publish_date": r["publish_date"],
+            "published": r["published"],
+            "is_closed": bool(r.get("is_closed")),
+        }
+        for r in all_rows
+    ])
 
     return f"""<!doctype html>
 <html lang="en">
@@ -288,25 +298,32 @@ def render_html(data):
   .chip:hover {{ border-color: var(--color-accent); }}
   .chip:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
   .chip.is-active {{ background: var(--color-accent); color: #05220f; border-color: var(--color-accent); font-weight: 600; }}
-  .chip-closed {{ margin-left: auto; opacity: 0.75; }}
+  .chip-closed {{ opacity: 0.75; }}
   .chip-closed.is-active {{ background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; opacity: 1; }}
   tr.is-closed {{ opacity: 0.7; }}
 
-  .search {{
-    margin-left: auto; font: inherit; font-size: 0.85rem; min-width: 220px;
+  .search, .group-select {{
+    font: inherit; font-size: 0.85rem;
     background: var(--color-muted); color: var(--color-foreground); border: 1px solid var(--color-border);
     border-radius: 8px; padding: 8px 12px; min-height: 40px;
   }}
-  .search:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
+  .search {{ margin-left: auto; min-width: 220px; }}
+  .group-by {{ display: inline-flex; align-items: center; gap: 8px; }}
+  .group-select {{ cursor: pointer; }}
+  .search:focus-visible, .group-select:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
   .search::placeholder {{ color: var(--color-foreground); opacity: 0.5; }}
+  .group-label {{ font-size: 0.8rem; opacity: 0.75; white-space: nowrap; }}
 
   .table-wrap {{ overflow-x: auto; border: 1px solid var(--color-border); border-radius: 10px; }}
-  table {{ border-collapse: collapse; width: 100%; font-size: 0.85rem; min-width: 640px; }}
+  table {{ border-collapse: collapse; width: 100%; font-size: 0.85rem; min-width: 560px; }}
   th, td {{ text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; }}
-  th {{ background: var(--color-muted); position: sticky; top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-foreground); opacity: 0.8; }}
+  th {{ background: var(--color-muted); position: sticky; top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-foreground); opacity: 0.8; white-space: nowrap; }}
   tbody tr:hover {{ background: var(--color-muted); }}
   tbody tr[hidden] {{ display: none; }}
+  tr.group-header td {{ background: var(--color-primary); font-weight: 600; font-size: 0.8rem; padding: 8px 12px; border-bottom: 1px solid var(--color-border); }}
   .status-badge {{ display: inline-flex; align-items: center; font-weight: 600; white-space: nowrap; }}
+  .kep-link {{ display: block; }}
+  .kep-link + .kep-link {{ margin-top: 4px; }}
   a {{ color: var(--color-accent); text-decoration: none; }}
   a:hover, a:focus-visible {{ text-decoration: underline; }}
   a:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
@@ -317,7 +334,10 @@ def render_html(data):
     * {{ transition: none !important; }}
   }}
   @media (max-width: 640px) {{
+    .controls {{ flex-direction: column; align-items: stretch; }}
     .search {{ margin-left: 0; width: 100%; }}
+    .group-by {{ width: 100%; justify-content: space-between; }}
+    .group-select {{ flex: 1; }}
   }}
 </style>
 </head>
@@ -329,40 +349,104 @@ def render_html(data):
 
 <div class="controls">
   <div class="chips" role="group" aria-label="Filter by status">{filter_buttons}</div>
+  <div class="group-by">
+    <label class="group-label" for="group-select">Group by</label>
+    <select class="group-select" id="group-select">
+      <option value="none">None</option>
+      <option value="status">Status</option>
+      <option value="sig">SIG</option>
+      <option value="stage">Stage</option>
+      <option value="comms_editor">Comms Editor</option>
+      <option value="published">Published</option>
+    </select>
+  </div>
   <input class="search" type="search" placeholder="Filter by KEP or PR title..." aria-label="Filter by KEP or PR title" id="search-input">
 </div>
 
 <div class="table-wrap">
 <table id="pr-table">
-  <thead><tr><th>PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th><th class="num">Lines added</th><th class="num">Reviews / Comments</th></tr></thead>
-  <tbody>{table_rows}</tbody>
+  <thead><tr><th>PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th></tr></thead>
+  <tbody id="pr-tbody"></tbody>
 </table>
 </div>
 <p class="empty-state" id="empty-state">No PRs match this filter.</p>
 
 <script>
 (function () {{
+  var ROWS = {rows_json};
+  var KEP_BASE_URL = {json.dumps(KEP_BASE_URL)};
+
   var statusChips = document.querySelectorAll('.chip:not(.chip-closed)');
   var closedChip = document.querySelector('.chip-closed');
   var searchInput = document.getElementById('search-input');
-  var rows = document.querySelectorAll('#pr-table tbody tr');
+  var groupSelect = document.getElementById('group-select');
+  var tbody = document.getElementById('pr-tbody');
   var emptyState = document.getElementById('empty-state');
   var activeFilter = 'all';
   var showClosed = false;
 
-  function applyFilters() {{
-    var term = searchInput.value.trim().toLowerCase();
-    var visibleCount = 0;
-    rows.forEach(function (row) {{
-      var isClosed = row.dataset.closed === '1';
-      if (isClosed && !showClosed) {{ row.hidden = true; return; }}
-      var matchesStatus = activeFilter === 'all' || row.dataset.status === activeFilter;
-      var matchesSearch = !term || row.dataset.search.indexOf(term) !== -1;
-      var visible = matchesStatus && matchesSearch;
-      row.hidden = !visible;
-      if (visible) visibleCount++;
+  function escapeHtml(s) {{
+    return String(s).replace(/[&<>"']/g, function (c) {{
+      return {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }}[c];
     }});
-    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+  }}
+
+  function kepLinks(keps) {{
+    return keps.map(function (k) {{
+      var href = k.number ? KEP_BASE_URL + k.number : '#';
+      return '<a class="kep-link" href="' + href + '" target="_blank" rel="noopener">' + escapeHtml(k.title) + '</a>';
+    }}).join('');
+  }}
+
+  function rowHtml(r) {{
+    return '<tr class="status-' + r.status_slug + (r.is_closed ? ' is-closed' : '') + '">' +
+      '<td class="mono"><a href="' + r.pr_url + '" target="_blank" rel="noopener">#' + r.pr_number + '</a></td>' +
+      '<td>' + kepLinks(r.keps) + '</td>' +
+      '<td>' + (escapeHtml(r.sig) || '&mdash;') + '</td>' +
+      '<td>' + (escapeHtml(r.comms_editor) || '&mdash;') + '</td>' +
+      '<td>' + (escapeHtml(r.stage) || '&mdash;') + '</td>' +
+      '<td><span class="status-badge"><span class="dot" style="background:' + r.dot_color + '"></span>' + escapeHtml(r.status) + '</span></td>' +
+      '<td class="mono">' + (escapeHtml(r.publish_date) || '&mdash;') + '</td>' +
+      '<td>' + escapeHtml(r.published) + '</td>' +
+    '</tr>';
+  }}
+
+  function groupHeaderHtml(label, count) {{
+    return '<tr class="group-header"><td colspan="8">' + escapeHtml(label || '(none)') + ' (' + count + ')</td></tr>';
+  }}
+
+  function matchesRow(r, term) {{
+    if (r.is_closed && !showClosed) return false;
+    if (activeFilter !== 'all' && r.status_slug !== activeFilter) return false;
+    if (!term) return true;
+    var blob = [r.pr_title, r.sig, r.comms_editor].concat(r.keps.map(function (k) {{ return k.title; }})).join(' ').toLowerCase();
+    return blob.indexOf(term) !== -1;
+  }}
+
+  function render() {{
+    var term = searchInput.value.trim().toLowerCase();
+    var visible = ROWS.filter(function (r) {{ return matchesRow(r, term); }});
+    var groupBy = groupSelect.value;
+    var html;
+
+    if (groupBy === 'none') {{
+      html = visible.map(rowHtml).join('');
+    }} else {{
+      var groups = {{}};
+      var order = [];
+      visible.forEach(function (r) {{
+        var key = r[groupBy] || '(none)';
+        if (!groups[key]) {{ groups[key] = []; order.push(key); }}
+        groups[key].push(r);
+      }});
+      order.sort();
+      html = order.map(function (key) {{
+        return groupHeaderHtml(key, groups[key].length) + groups[key].map(rowHtml).join('');
+      }}).join('');
+    }}
+
+    tbody.innerHTML = html;
+    emptyState.style.display = visible.length === 0 ? 'block' : 'none';
   }}
 
   statusChips.forEach(function (chip) {{
@@ -370,7 +454,7 @@ def render_html(data):
       statusChips.forEach(function (c) {{ c.classList.remove('is-active'); }});
       chip.classList.add('is-active');
       activeFilter = chip.dataset.filter;
-      applyFilters();
+      render();
     }});
   }});
 
@@ -378,12 +462,13 @@ def render_html(data):
     closedChip.addEventListener('click', function () {{
       showClosed = !showClosed;
       closedChip.classList.toggle('is-active', showClosed);
-      applyFilters();
+      render();
     }});
   }}
 
-  searchInput.addEventListener('input', applyFilters);
-  applyFilters();
+  searchInput.addEventListener('input', render);
+  groupSelect.addEventListener('change', render);
+  render();
 }})();
 </script>
 </body>
