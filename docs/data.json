@@ -1,16 +1,14 @@
 {
-  "generated_at": "2026-08-03 14:05 UTC",
+  "generated_at": "2026-08-03 14:25 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
-    "No content": 5,
+    "No content": 3,
     "Review in progress": 8,
-    "Draft": 7,
-    "No content (closed)": 2,
-    "Draft (closed)": 1,
+    "Draft": 6,
     "Review in progress (closed)": 1,
     "Ready for review": 2,
-    "Placeholder": 3,
-    "Placeholder (closed)": 3
+    "Placeholder (closed)": 3,
+    "Placeholder": 2
   },
   "rows": [
     {
@@ -65,10 +63,6 @@
           "title": "Gang Scheduling Support in Kubernetes"
         },
         {
-          "number": "5732",
-          "title": "KEP-5732: Topology-aware workload scheduling"
-        },
-        {
           "number": "6012",
           "title": "CompositePodGroup API"
         },
@@ -99,90 +93,6 @@
       "comment_count": 11,
       "status": "Draft",
       "is_closed": false
-    },
-    {
-      "pr_number": 56229,
-      "pr_url": "https://github.com/kubernetes/website/pull/56229",
-      "pr_title": "[WIP] [KEP-4563] feature blog for EvictionRequest API",
-      "keps": [
-        {
-          "number": "4563",
-          "title": "EvictionRequest API"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "2026-XX-XX",
-      "published": "Draft",
-      "additions": 12,
-      "review_count": 1,
-      "comment_count": 5,
-      "status": "No content (closed)",
-      "is_closed": true
-    },
-    {
-      "pr_number": 56233,
-      "pr_url": "https://github.com/kubernetes/website/pull/56233",
-      "pr_title": "[WIP] Add blog post for KEP-5474: Enable Writable Cgroups",
-      "keps": [
-        {
-          "number": "5474",
-          "title": "Enable Writable cgroups for unprivileged containers"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "XXXX-XX-XX",
-      "published": "Draft",
-      "additions": 81,
-      "review_count": 1,
-      "comment_count": 6,
-      "status": "Draft",
-      "is_closed": false
-    },
-    {
-      "pr_number": 56234,
-      "pr_url": "https://github.com/kubernetes/website/pull/56234",
-      "pr_title": "[WIP][KEP-6122][BLOG] Configurable Scaling Delay blog post",
-      "keps": [
-        {
-          "number": "6122",
-          "title": "Support Configurable Scaling Delay with Pod Resource Exposure"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "2026-XX-XX",
-      "published": "Draft",
-      "additions": 12,
-      "review_count": 1,
-      "comment_count": 3,
-      "status": "No content",
-      "is_closed": false
-    },
-    {
-      "pr_number": 56249,
-      "pr_url": "https://github.com/kubernetes/website/pull/56249",
-      "pr_title": "[WIP] Add blog post for KEP-5554: InPlacePodVerticalScalingExclusiveCPUs",
-      "keps": [
-        {
-          "number": "5554",
-          "title": "Support In place update pod resources alongside static cpu manager policy"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "",
-      "published": "Draft",
-      "additions": 92,
-      "review_count": 2,
-      "comment_count": 5,
-      "status": "Draft (closed)",
-      "is_closed": true
     },
     {
       "pr_number": 56263,
@@ -359,10 +269,6 @@
         {
           "number": "5004",
           "title": "DRA: Handle extended resource requests via DRA Driver"
-        },
-        {
-          "number": "5491",
-          "title": "DRA: List Types for Attributes"
         }
       ],
       "sig": "sig-scheduling; sig-node",
@@ -482,27 +388,6 @@
       "is_closed": false
     },
     {
-      "pr_number": 56432,
-      "pr_url": "https://github.com/kubernetes/website/pull/56432",
-      "pr_title": "[Placeholder] Blog for KEP-6063: per-pod PID limit alpha",
-      "keps": [
-        {
-          "number": "6063",
-          "title": "Configuration for Per-Pod PID Limit"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "",
-      "published": "Draft",
-      "additions": 0,
-      "review_count": 0,
-      "comment_count": 4,
-      "status": "Placeholder",
-      "is_closed": false
-    },
-    {
       "pr_number": 56436,
       "pr_url": "https://github.com/kubernetes/website/pull/56436",
       "pr_title": "[Placeholder] blog for KEP-4939: Support TLS Credentials in gRPC Probe",
@@ -566,48 +451,6 @@
       "is_closed": false
     },
     {
-      "pr_number": 56449,
-      "pr_url": "https://github.com/kubernetes/website/pull/56449",
-      "pr_title": "[WIP] Add post-release blog for KEP-2837",
-      "keps": [
-        {
-          "number": "",
-          "title": "Pod level resources"
-        }
-      ],
-      "sig": "sig-node",
-      "comms_editor": "",
-      "stage": "Stable",
-      "publish_date": "",
-      "published": "Not yet published",
-      "additions": 0,
-      "review_count": 0,
-      "comment_count": 4,
-      "status": "No content",
-      "is_closed": false
-    },
-    {
-      "pr_number": 56453,
-      "pr_url": "https://github.com/kubernetes/website/pull/56453",
-      "pr_title": "Placeholder PR for the Conditional Authorization blog post for 1.37",
-      "keps": [
-        {
-          "number": "5681",
-          "title": "Conditional Authorization"
-        }
-      ],
-      "sig": "sig-auth",
-      "comms_editor": "",
-      "stage": "Alpha",
-      "publish_date": "2026-08-XXT12:00:00+03:00",
-      "published": "Draft",
-      "additions": 13,
-      "review_count": 0,
-      "comment_count": 5,
-      "status": "No content (closed)",
-      "is_closed": true
-    },
-    {
       "pr_number": 56455,
       "pr_url": "https://github.com/kubernetes/website/pull/56455",
       "pr_title": "Blog post for Native Histograms",
@@ -657,13 +500,9 @@
         {
           "number": "5502",
           "title": "Add stickyBit support for emptydir volumes"
-        },
-        {
-          "number": "6035",
-          "title": "Exec session identity propagation"
         }
       ],
-      "sig": "sig-storage; sig-node",
+      "sig": "sig-storage",
       "comms_editor": "RinkiyaKeDad",
       "stage": "Alpha",
       "publish_date": "",

@@ -11,6 +11,10 @@ PROJECT_NUMBER = "264"
 PROJECT_OWNER = "kubernetes"
 WEBSITE_REPO = "kubernetes/website"
 
+# Statuses meaning the KEP is no longer tracked for this milestone -- mirrors
+# the -status: exclusion on the project's "Comms - Feature Blogs" view.
+UNTRACKED_STATUSES = {"Removed from Milestone", "Deferred"}
+
 
 def run_gh(args):
     result = subprocess.run(["gh"] + args, capture_output=True, text=True)
@@ -81,6 +85,8 @@ def main():
     for item in items:
         pr_url = item.get("blog PR")
         if not pr_url:
+            continue
+        if item.get("status") in UNTRACKED_STATUSES:
             continue
         pr_to_keps[pr_url].append({
             "number": item.get("issue Number", ""),
