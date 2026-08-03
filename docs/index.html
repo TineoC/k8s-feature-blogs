@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kubernetes v1.37 Feature Blog Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.4rem; }
+  .meta { color: #666; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .stat { border: 1px solid #ddd; border-radius: 8px; padding: 0.5rem 1rem; text-align: center; min-width: 90px; }
+  .stat-num { font-size: 1.3rem; font-weight: 600; }
+  .stat-label { font-size: 0.75rem; color: #666; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #fafafa; position: sticky; top: 0; }
+  .status-badge { font-weight: 600; white-space: nowrap; }
+  .status-merged .status-badge { color: #1a7f37; }
+  .status-ready-for-review .status-badge { color: #0969da; }
+  .status-review-in-progress .status-badge { color: #9a6700; }
+  .status-draft .status-badge { color: #8250df; }
+  .status-no-content .status-badge, .status-no-content-closed .status-badge { color: #cf222e; }
+  .status-placeholder .status-badge, .status-placeholder-closed .status-badge { color: #57606a; }
+  a { color: inherit; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0d1117; color: #c9d1d9; }
+    .stat { border-color: #30363d; }
+    th { background: #161b22; }
+    th, td { border-color: #21262d; }
+    .meta, .stat-label { color: #8b949e; }
+  }
+</style>
+</head>
+<body>
+<h1>Kubernetes v1.37 Feature Blog Status</h1>
+<div class="meta">Generated 2026-08-03 13:45 UTC &middot; source: <a href="https://github.com/orgs/kubernetes/projects/264/views/5" target="_blank" rel="noopener">Release Tracking board, view 5</a> &middot; rebuilt automatically every 6h via GitHub Actions</div>
+<div class="stats"><div class="stat"><div class="stat-num">3</div><div class="stat-label">Ready for review</div></div><div class="stat"><div class="stat-num">7</div><div class="stat-label">Review in progress</div></div><div class="stat"><div class="stat-num">1</div><div class="stat-label">Review in progress (closed)</div></div><div class="stat"><div class="stat-num">7</div><div class="stat-label">Draft</div></div><div class="stat"><div class="stat-num">1</div><div class="stat-label">Draft (closed)</div></div><div class="stat"><div class="stat-num">5</div><div class="stat-label">No content</div></div><div class="stat"><div class="stat-num">2</div><div class="stat-label">No content (closed)</div></div><div class="stat"><div class="stat-num">3</div><div class="stat-label">Placeholder</div></div><div class="stat"><div class="stat-num">3</div><div class="stat-label">Placeholder (closed)</div></div></div>
+<table>
+  <thead><tr><th>PR</th><th>KEP(s)</th><th>Status</th><th>Lines added</th><th>Reviews / Comments</th></tr></thead>
+  <tbody><tr class="status-ready-for-review">
+      <td><a href="https://github.com/kubernetes/website/pull/56420" target="_blank" rel="noopener">#56420</a></td>
+      <td>sig-node: Kubelet-in-UserNS, aka Rootless mode</td>
+      <td class="status-badge">Ready for review</td>
+      <td>190</td>
+      <td>0 / 5</td>
+    </tr><tr class="status-ready-for-review">
+      <td><a href="https://github.com/kubernetes/website/pull/56446" target="_blank" rel="noopener">#56446</a></td>
+      <td>metrics.k8s.io API definition</td>
+      <td class="status-badge">Ready for review</td>
+      <td>99</td>
+      <td>0 / 5</td>
+    </tr><tr class="status-ready-for-review">
+      <td><a href="https://github.com/kubernetes/website/pull/56483" target="_blank" rel="noopener">#56483</a></td>
+      <td>Move Storage Version Migrator in-tree</td>
+      <td class="status-badge">Ready for review</td>
+      <td>103</td>
+      <td>0 / 6</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56207" target="_blank" rel="noopener">#56207</a></td>
+      <td>Report last used time on a PVC</td>
+      <td class="status-badge">Review in progress</td>
+      <td>197</td>
+      <td>7 / 9</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56267" target="_blank" rel="noopener">#56267</a></td>
+      <td>Specialized Lifecycle Management</td>
+      <td class="status-badge">Review in progress</td>
+      <td>172</td>
+      <td>13 / 22</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56290" target="_blank" rel="noopener">#56290</a></td>
+      <td>Support scaling to/from zero pods for object/external metrics</td>
+      <td class="status-badge">Review in progress</td>
+      <td>200</td>
+      <td>3 / 7</td>
+    </tr><tr class="status-review-in-progress-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56297" target="_blank" rel="noopener">#56297</a></td>
+      <td>KYAML</td>
+      <td class="status-badge">Review in progress (closed)</td>
+      <td>203</td>
+      <td>2 / 9</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56351" target="_blank" rel="noopener">#56351</a></td>
+      <td>DRA: Node Allocatable Resource Requests; DRA: Resource Availability Visibility; DRA: Optional Node Preparation; DRA: Standard numaNode Device Attribute; DRA: Handle extended resource requests via DRA Driver; DRA: List Types for Attributes</td>
+      <td class="status-badge">Review in progress</td>
+      <td>75</td>
+      <td>1 / 15</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56360" target="_blank" rel="noopener">#56360</a></td>
+      <td>Pod Level Resource Managers</td>
+      <td class="status-badge">Review in progress</td>
+      <td>70</td>
+      <td>3 / 8</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56455" target="_blank" rel="noopener">#56455</a></td>
+      <td>Native Histogram Support for Kubernetes Metrics</td>
+      <td class="status-badge">Review in progress</td>
+      <td>162</td>
+      <td>1 / 6</td>
+    </tr><tr class="status-review-in-progress">
+      <td><a href="https://github.com/kubernetes/website/pull/56461" target="_blank" rel="noopener">#56461</a></td>
+      <td>Scheduler Preemption for In-Place Pod Resize</td>
+      <td class="status-badge">Review in progress</td>
+      <td>85</td>
+      <td>4 / 12</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56215" target="_blank" rel="noopener">#56215</a></td>
+      <td>Gang Scheduling Support in Kubernetes; KEP-5732: Topology-aware workload scheduling; CompositePodGroup API; Workload-aware preemption; WAS: Controller Integration APIs; WAS: Integrate Workload APIs with Job controller; DRA: ResourceClaim Support for Workloads</td>
+      <td class="status-badge">Draft</td>
+      <td>355</td>
+      <td>3 / 11</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56233" target="_blank" rel="noopener">#56233</a></td>
+      <td>Enable Writable cgroups for unprivileged containers</td>
+      <td class="status-badge">Draft</td>
+      <td>81</td>
+      <td>1 / 6</td>
+    </tr><tr class="status-draft-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56249" target="_blank" rel="noopener">#56249</a></td>
+      <td>Support In place update pod resources alongside static cpu manager policy</td>
+      <td class="status-badge">Draft (closed)</td>
+      <td>92</td>
+      <td>2 / 5</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56263" target="_blank" rel="noopener">#56263</a></td>
+      <td>Add user fields to atomic write volumes</td>
+      <td class="status-badge">Draft</td>
+      <td>31</td>
+      <td>4 / 8</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56283" target="_blank" rel="noopener">#56283</a></td>
+      <td>Support memory qos with cgroups v2</td>
+      <td class="status-badge">Draft</td>
+      <td>135</td>
+      <td>3 / 6</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56316" target="_blank" rel="noopener">#56316</a></td>
+      <td>etcd RangeStream</td>
+      <td class="status-badge">Draft</td>
+      <td>76</td>
+      <td>2 / 5</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56422" target="_blank" rel="noopener">#56422</a></td>
+      <td>Remove ipvs mode in kube-proxy</td>
+      <td class="status-badge">Draft</td>
+      <td>158</td>
+      <td>4 / 10</td>
+    </tr><tr class="status-draft">
+      <td><a href="https://github.com/kubernetes/website/pull/56425" target="_blank" rel="noopener">#56425</a></td>
+      <td>PV Health Monitor</td>
+      <td class="status-badge">Draft</td>
+      <td>31</td>
+      <td>1 / 9</td>
+    </tr><tr class="status-no-content">
+      <td><a href="https://github.com/kubernetes/website/pull/53088" target="_blank" rel="noopener">#53088</a></td>
+      <td>Integrate CSI Volume attach limits with cluster autoscaler</td>
+      <td class="status-badge">No content</td>
+      <td>9</td>
+      <td>1 / 23</td>
+    </tr><tr class="status-no-content-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56229" target="_blank" rel="noopener">#56229</a></td>
+      <td>EvictionRequest API</td>
+      <td class="status-badge">No content (closed)</td>
+      <td>12</td>
+      <td>1 / 5</td>
+    </tr><tr class="status-no-content">
+      <td><a href="https://github.com/kubernetes/website/pull/56234" target="_blank" rel="noopener">#56234</a></td>
+      <td>Support Configurable Scaling Delay with Pod Resource Exposure</td>
+      <td class="status-badge">No content</td>
+      <td>12</td>
+      <td>1 / 3</td>
+    </tr><tr class="status-no-content">
+      <td><a href="https://github.com/kubernetes/website/pull/56312" target="_blank" rel="noopener">#56312</a></td>
+      <td>ClusterTrustBundles (previously Trust Anchor Sets); Pod Certificates</td>
+      <td class="status-badge">No content</td>
+      <td>12</td>
+      <td>2 / 9</td>
+    </tr><tr class="status-no-content">
+      <td><a href="https://github.com/kubernetes/website/pull/56401" target="_blank" rel="noopener">#56401</a></td>
+      <td>API Server Authentication to Webhooks</td>
+      <td class="status-badge">No content</td>
+      <td>0</td>
+      <td>0 / 7</td>
+    </tr><tr class="status-no-content">
+      <td><a href="https://github.com/kubernetes/website/pull/56449" target="_blank" rel="noopener">#56449</a></td>
+      <td>Pod level resources</td>
+      <td class="status-badge">No content</td>
+      <td>0</td>
+      <td>0 / 4</td>
+    </tr><tr class="status-no-content-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56453" target="_blank" rel="noopener">#56453</a></td>
+      <td>Conditional Authorization</td>
+      <td class="status-badge">No content (closed)</td>
+      <td>13</td>
+      <td>0 / 5</td>
+    </tr><tr class="status-placeholder">
+      <td><a href="https://github.com/kubernetes/website/pull/56432" target="_blank" rel="noopener">#56432</a></td>
+      <td>Configuration for Per-Pod PID Limit</td>
+      <td class="status-badge">Placeholder</td>
+      <td>0</td>
+      <td>0 / 4</td>
+    </tr><tr class="status-placeholder-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56436" target="_blank" rel="noopener">#56436</a></td>
+      <td>Support TLS Credentials in gRPC Probe</td>
+      <td class="status-badge">Placeholder (closed)</td>
+      <td>0</td>
+      <td>0 / 8</td>
+    </tr><tr class="status-placeholder-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56437" target="_blank" rel="noopener">#56437</a></td>
+      <td>HTTP/2 cleartext (h2c) for container probes</td>
+      <td class="status-badge">Placeholder (closed)</td>
+      <td>0</td>
+      <td>0 / 7</td>
+    </tr><tr class="status-placeholder">
+      <td><a href="https://github.com/kubernetes/website/pull/56457" target="_blank" rel="noopener">#56457</a></td>
+      <td>Add bind mount options (noexec, nodev, nosuid) support on volumeMounts</td>
+      <td class="status-badge">Placeholder</td>
+      <td>0</td>
+      <td>0 / 5</td>
+    </tr><tr class="status-placeholder">
+      <td><a href="https://github.com/kubernetes/website/pull/56458" target="_blank" rel="noopener">#56458</a></td>
+      <td>Add stickyBit support for emptydir volumes; Exec session identity propagation</td>
+      <td class="status-badge">Placeholder</td>
+      <td>0</td>
+      <td>0 / 7</td>
+    </tr><tr class="status-placeholder-closed">
+      <td><a href="https://github.com/kubernetes/website/pull/56462" target="_blank" rel="noopener">#56462</a></td>
+      <td>Dynamic resize of memory-backed volumes</td>
+      <td class="status-badge">Placeholder (closed)</td>
+      <td>0</td>
+      <td>0 / 7</td>
+    </tr></tbody>
+</table>
+</body>
+</html>

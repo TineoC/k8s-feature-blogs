@@ -1,0 +1,26 @@
+# k8s-feature-blogs
+
+Live status page for Kubernetes v1.37 Feature Blog PRs, sourced from the
+[Release Tracking project board](https://github.com/orgs/kubernetes/projects/264/views/5)
+(Blog Status column). Rebuilds every 6 hours via GitHub Actions and publishes
+to GitHub Pages from `docs/`.
+
+## Setup (one-time, required)
+
+The default `GITHUB_TOKEN` cannot read GitHub Projects (v2) via GraphQL, so
+the workflow needs a Personal Access Token with `project` (read) and `repo`
+(read, for PR data) scopes:
+
+1. Create a classic PAT: https://github.com/settings/tokens/new
+   scopes: `repo`, `read:project`
+2. Add it as a repo secret named `PROJECT_TOKEN`:
+   `gh secret set PROJECT_TOKEN --repo tineoc/k8s-feature-blogs`
+3. Enable Pages: Settings -> Pages -> Source: `main` branch, `/docs` folder.
+
+## Manual rebuild
+
+```
+python3 scripts/build.py
+```
+
+Requires `gh` CLI authenticated with the scopes above.

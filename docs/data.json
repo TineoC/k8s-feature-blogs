@@ -1,0 +1,414 @@
+{
+  "generated_at": "2026-08-03 13:45 UTC",
+  "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
+  "summary": {
+    "No content": 5,
+    "Review in progress": 7,
+    "Draft": 7,
+    "No content (closed)": 2,
+    "Draft (closed)": 1,
+    "Review in progress (closed)": 1,
+    "Ready for review": 3,
+    "Placeholder": 3,
+    "Placeholder (closed)": 3
+  },
+  "rows": [
+    {
+      "pr_number": 53088,
+      "pr_url": "https://github.com/kubernetes/website/pull/53088",
+      "pr_title": "Add blog article about for volume limit aware autoscaling",
+      "keps": [
+        "Integrate CSI Volume attach limits with cluster autoscaler"
+      ],
+      "additions": 9,
+      "review_count": 1,
+      "comment_count": 23,
+      "status": "No content"
+    },
+    {
+      "pr_number": 56207,
+      "pr_url": "https://github.com/kubernetes/website/pull/56207",
+      "pr_title": "Add blog post for KEP-5541: PVC last used time",
+      "keps": [
+        "Report last used time on a PVC"
+      ],
+      "additions": 197,
+      "review_count": 7,
+      "comment_count": 9,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56215,
+      "pr_url": "https://github.com/kubernetes/website/pull/56215",
+      "pr_title": "[WIP] Add Workload Aware Scheduling v1.37 blog post placeholder",
+      "keps": [
+        "Gang Scheduling Support in Kubernetes",
+        "KEP-5732: Topology-aware workload scheduling",
+        "CompositePodGroup API",
+        "Workload-aware preemption",
+        "WAS: Controller Integration APIs",
+        "WAS: Integrate Workload APIs with Job controller",
+        "DRA: ResourceClaim Support for Workloads"
+      ],
+      "additions": 355,
+      "review_count": 3,
+      "comment_count": 11,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56229,
+      "pr_url": "https://github.com/kubernetes/website/pull/56229",
+      "pr_title": "[WIP] [KEP-4563] feature blog for EvictionRequest API",
+      "keps": [
+        "EvictionRequest API"
+      ],
+      "additions": 12,
+      "review_count": 1,
+      "comment_count": 5,
+      "status": "No content (closed)"
+    },
+    {
+      "pr_number": 56233,
+      "pr_url": "https://github.com/kubernetes/website/pull/56233",
+      "pr_title": "[WIP] Add blog post for KEP-5474: Enable Writable Cgroups",
+      "keps": [
+        "Enable Writable cgroups for unprivileged containers"
+      ],
+      "additions": 81,
+      "review_count": 1,
+      "comment_count": 6,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56234,
+      "pr_url": "https://github.com/kubernetes/website/pull/56234",
+      "pr_title": "[WIP][KEP-6122][BLOG] Configurable Scaling Delay blog post",
+      "keps": [
+        "Support Configurable Scaling Delay with Pod Resource Exposure"
+      ],
+      "additions": 12,
+      "review_count": 1,
+      "comment_count": 3,
+      "status": "No content"
+    },
+    {
+      "pr_number": 56249,
+      "pr_url": "https://github.com/kubernetes/website/pull/56249",
+      "pr_title": "[WIP] Add blog post for KEP-5554: InPlacePodVerticalScalingExclusiveCPUs",
+      "keps": [
+        "Support In place update pod resources alongside static cpu manager policy"
+      ],
+      "additions": 92,
+      "review_count": 2,
+      "comment_count": 5,
+      "status": "Draft (closed)"
+    },
+    {
+      "pr_number": 56263,
+      "pr_url": "https://github.com/kubernetes/website/pull/56263",
+      "pr_title": "[WIP] KEP-5936: Add a feature blog for atomic volume user fields beta in 1.38",
+      "keps": [
+        "Add user fields to atomic write volumes"
+      ],
+      "additions": 31,
+      "review_count": 4,
+      "comment_count": 8,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56267,
+      "pr_url": "https://github.com/kubernetes/website/pull/56267",
+      "pr_title": "Node Lifecycle Conditions Blog",
+      "keps": [
+        "Specialized Lifecycle Management"
+      ],
+      "additions": 172,
+      "review_count": 13,
+      "comment_count": 22,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56283,
+      "pr_url": "https://github.com/kubernetes/website/pull/56283",
+      "pr_title": "[WIP] memoryqos v1.37 blog",
+      "keps": [
+        "Support memory qos with cgroups v2"
+      ],
+      "additions": 135,
+      "review_count": 3,
+      "comment_count": 6,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56290,
+      "pr_url": "https://github.com/kubernetes/website/pull/56290",
+      "pr_title": "KEP-2021: Scale Workloads to Zero with HorizontalPodAutoscaler",
+      "keps": [
+        "Support scaling to/from zero pods for object/external metrics"
+      ],
+      "additions": 200,
+      "review_count": 3,
+      "comment_count": 7,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56297,
+      "pr_url": "https://github.com/kubernetes/website/pull/56297",
+      "pr_title": "Add blog post: \"Kubernetes v1.37: KYAML graduates to stable\"",
+      "keps": [
+        "KYAML"
+      ],
+      "additions": 203,
+      "review_count": 2,
+      "comment_count": 9,
+      "status": "Review in progress (closed)"
+    },
+    {
+      "pr_number": 56312,
+      "pr_url": "https://github.com/kubernetes/website/pull/56312",
+      "pr_title": "[WIP] Pod Certificate / Cluster Trust Bundleblog Blog",
+      "keps": [
+        "ClusterTrustBundles (previously Trust Anchor Sets)",
+        "Pod Certificates"
+      ],
+      "additions": 12,
+      "review_count": 2,
+      "comment_count": 9,
+      "status": "No content"
+    },
+    {
+      "pr_number": 56316,
+      "pr_url": "https://github.com/kubernetes/website/pull/56316",
+      "pr_title": "[WIP] Feature blog: etcd RangeStream (Kubernetes v1.37)",
+      "keps": [
+        "etcd RangeStream"
+      ],
+      "additions": 76,
+      "review_count": 2,
+      "comment_count": 5,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56351,
+      "pr_url": "https://github.com/kubernetes/website/pull/56351",
+      "pr_title": "Kubernetes v1.37 DRA feature blog",
+      "keps": [
+        "DRA: Node Allocatable Resource Requests",
+        "DRA: Resource Availability Visibility",
+        "DRA: Optional Node Preparation",
+        "DRA: Standard numaNode Device Attribute",
+        "DRA: Handle extended resource requests via DRA Driver",
+        "DRA: List Types for Attributes"
+      ],
+      "additions": 75,
+      "review_count": 1,
+      "comment_count": 15,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56360,
+      "pr_url": "https://github.com/kubernetes/website/pull/56360",
+      "pr_title": "KEP-5526: Pod Level Resource Managers blog 1.37",
+      "keps": [
+        "Pod Level Resource Managers"
+      ],
+      "additions": 70,
+      "review_count": 3,
+      "comment_count": 8,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56401,
+      "pr_url": "https://github.com/kubernetes/website/pull/56401",
+      "pr_title": "[WIP] KEP-6060: Blog Entry",
+      "keps": [
+        "API Server Authentication to Webhooks"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 7,
+      "status": "No content"
+    },
+    {
+      "pr_number": 56420,
+      "pr_url": "https://github.com/kubernetes/website/pull/56420",
+      "pr_title": "blog for KEP-2033: Kubelet-in-UserNS, aka Rootless mode",
+      "keps": [
+        "sig-node: Kubelet-in-UserNS, aka Rootless mode"
+      ],
+      "additions": 190,
+      "review_count": 0,
+      "comment_count": 5,
+      "status": "Ready for review"
+    },
+    {
+      "pr_number": 56422,
+      "pr_url": "https://github.com/kubernetes/website/pull/56422",
+      "pr_title": "KEP-5495: blog post about IPVS deprecation",
+      "keps": [
+        "Remove ipvs mode in kube-proxy"
+      ],
+      "additions": 158,
+      "review_count": 4,
+      "comment_count": 10,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56425,
+      "pr_url": "https://github.com/kubernetes/website/pull/56425",
+      "pr_title": "[WIP] Add blog for reworked volume health",
+      "keps": [
+        "PV Health Monitor"
+      ],
+      "additions": 31,
+      "review_count": 1,
+      "comment_count": 9,
+      "status": "Draft"
+    },
+    {
+      "pr_number": 56432,
+      "pr_url": "https://github.com/kubernetes/website/pull/56432",
+      "pr_title": "[Placeholder] Blog for KEP-6063: per-pod PID limit alpha",
+      "keps": [
+        "Configuration for Per-Pod PID Limit"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 4,
+      "status": "Placeholder"
+    },
+    {
+      "pr_number": 56436,
+      "pr_url": "https://github.com/kubernetes/website/pull/56436",
+      "pr_title": "[Placeholder] blog for KEP-4939: Support TLS Credentials in gRPC Probe",
+      "keps": [
+        "Support TLS Credentials in gRPC Probe"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 8,
+      "status": "Placeholder (closed)"
+    },
+    {
+      "pr_number": 56437,
+      "pr_url": "https://github.com/kubernetes/website/pull/56437",
+      "pr_title": "[Placeholder] blog for KEP-5999: HTTP/2 cleartext (h2c) for container Probes",
+      "keps": [
+        "HTTP/2 cleartext (h2c) for container probes"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 7,
+      "status": "Placeholder (closed)"
+    },
+    {
+      "pr_number": 56446,
+      "pr_url": "https://github.com/kubernetes/website/pull/56446",
+      "pr_title": "Add blog for KEP-5207: metrics.k8s.io/v1 GA",
+      "keps": [
+        "metrics.k8s.io API definition"
+      ],
+      "additions": 99,
+      "review_count": 0,
+      "comment_count": 5,
+      "status": "Ready for review"
+    },
+    {
+      "pr_number": 56449,
+      "pr_url": "https://github.com/kubernetes/website/pull/56449",
+      "pr_title": "[WIP] Add post-release blog for KEP-2837",
+      "keps": [
+        "Pod level resources"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 4,
+      "status": "No content"
+    },
+    {
+      "pr_number": 56453,
+      "pr_url": "https://github.com/kubernetes/website/pull/56453",
+      "pr_title": "Placeholder PR for the Conditional Authorization blog post for 1.37",
+      "keps": [
+        "Conditional Authorization"
+      ],
+      "additions": 13,
+      "review_count": 0,
+      "comment_count": 5,
+      "status": "No content (closed)"
+    },
+    {
+      "pr_number": 56455,
+      "pr_url": "https://github.com/kubernetes/website/pull/56455",
+      "pr_title": "Blog post for Native Histograms",
+      "keps": [
+        "Native Histogram Support for Kubernetes Metrics"
+      ],
+      "additions": 162,
+      "review_count": 1,
+      "comment_count": 6,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56457,
+      "pr_url": "https://github.com/kubernetes/website/pull/56457",
+      "pr_title": "[Placeholder] Blog for KEP-5855: Add bind mount options to VolumeMount",
+      "keps": [
+        "Add bind mount options (noexec, nodev, nosuid) support on volumeMounts"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 5,
+      "status": "Placeholder"
+    },
+    {
+      "pr_number": 56458,
+      "pr_url": "https://github.com/kubernetes/website/pull/56458",
+      "pr_title": "[Placeholder] Blog for KEP-6035: Exec session identity propagation",
+      "keps": [
+        "Add stickyBit support for emptydir volumes",
+        "Exec session identity propagation"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 7,
+      "status": "Placeholder"
+    },
+    {
+      "pr_number": 56461,
+      "pr_url": "https://github.com/kubernetes/website/pull/56461",
+      "pr_title": "Blog for KEP-5836: Scheduler Preemption for In-Place Pod Resize (alpha)",
+      "keps": [
+        "Scheduler Preemption for In-Place Pod Resize"
+      ],
+      "additions": 85,
+      "review_count": 4,
+      "comment_count": 12,
+      "status": "Review in progress"
+    },
+    {
+      "pr_number": 56462,
+      "pr_url": "https://github.com/kubernetes/website/pull/56462",
+      "pr_title": "[Placeholder] Blog for KEP-6030: Dynamic Resize of Memory-Backed Volumes",
+      "keps": [
+        "Dynamic resize of memory-backed volumes"
+      ],
+      "additions": 0,
+      "review_count": 0,
+      "comment_count": 7,
+      "status": "Placeholder (closed)"
+    },
+    {
+      "pr_number": 56483,
+      "pr_url": "https://github.com/kubernetes/website/pull/56483",
+      "pr_title": "Add post-release blog for KEP-4192: In Tree Storage Version Migration",
+      "keps": [
+        "Move Storage Version Migrator in-tree"
+      ],
+      "additions": 103,
+      "review_count": 0,
+      "comment_count": 6,
+      "status": "Ready for review"
+    }
+  ]
+}
