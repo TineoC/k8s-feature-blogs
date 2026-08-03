@@ -56,19 +56,27 @@
   .stat-num { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; }
   .stat-label { font-size: 0.75rem; color: var(--color-foreground); opacity: 0.75; display: flex; align-items: center; margin-top: 4px; }
 
-  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .controls { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .controls-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .filter-groups { display: flex; flex-direction: column; gap: 6px; }
+  .chip-group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .chip-group-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.6;
+    min-width: 92px; flex-shrink: 0;
+  }
   .chip {
-    display: inline-flex; align-items: center; font: inherit; font-size: 0.8rem;
+    display: inline-flex; align-items: center; font: inherit; font-size: 0.78rem;
     background: var(--color-muted); color: var(--color-foreground); border: 1px solid var(--color-border);
-    border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
-    min-height: 32px;
+    border-radius: 999px; padding: 5px 11px; cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
+    min-height: 30px;
   }
   .chip:hover { border-color: var(--color-accent); }
   .chip:focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; }
   .chip.is-active { background: var(--color-accent); color: #05220f; border-color: var(--color-accent); font-weight: 600; }
   .chip-closed { opacity: 0.75; }
   .chip-closed.is-active { background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; opacity: 1; }
+  .chip-clear { background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; display: none; }
+  .chip-clear.is-visible { display: inline-flex; }
   tr.is-closed { opacity: 0.7; }
 
   .search, .group-select {
@@ -87,12 +95,24 @@
   table { border-collapse: collapse; width: 100%; font-size: 0.85rem; min-width: 560px; }
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
   th { background: var(--color-muted); position: sticky; top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-foreground); opacity: 0.8; white-space: nowrap; }
+  th.sortable { cursor: pointer; user-select: none; }
+  th.sortable:hover { color: var(--color-accent); }
+  th .sort-indicator { margin-left: 4px; opacity: 0.7; }
+  th[title] { cursor: help; }
   tbody tr:hover { background: var(--color-muted); }
   tbody tr[hidden] { display: none; }
   tr.group-header td { background: var(--color-primary); font-weight: 600; font-size: 0.8rem; padding: 8px 12px; border-bottom: 1px solid var(--color-border); }
   .status-badge { display: inline-flex; align-items: center; font-weight: 600; white-space: nowrap; }
   .kep-link { display: block; }
   .kep-link + .kep-link { margin-top: 4px; }
+  .icon-link { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; color: var(--color-accent); }
+  .icon-link + .icon-link { margin-top: 4px; }
+  .icon-link.icon-muted { color: var(--color-foreground); opacity: 0.3; }
+  .pill {
+    display: inline-flex; align-items: center; font-size: 0.75rem; line-height: 1;
+    background: var(--color-muted); border: 1px solid var(--color-border); border-radius: 999px;
+    padding: 4px 9px; margin: 2px 4px 2px 0; white-space: nowrap;
+  }
   a { color: var(--color-accent); text-decoration: none; }
   a:hover, a:focus-visible { text-decoration: underline; }
   a:focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; }
@@ -103,39 +123,60 @@
     * { transition: none !important; }
   }
   @media (max-width: 640px) {
-    .controls { flex-direction: column; align-items: stretch; }
+    .controls-top { flex-direction: column; align-items: stretch; }
     .search { margin-left: 0; width: 100%; }
     .group-by { width: 100%; justify-content: space-between; }
     .group-select { flex: 1; }
+    .chip-group-label { min-width: 0; width: 100%; }
   }
 </style>
 </head>
 <body>
 <h1>Kubernetes v1.37 Feature Blog Status</h1>
-<div class="meta">Last run: <strong>2026-08-03 14:43 UTC</strong> &middot; source: <a href="https://github.com/orgs/kubernetes/projects/264/views/5" target="_blank" rel="noopener">Release Tracking board, view 5</a> &middot; rebuilds every 6h via GitHub Actions</div>
+<div class="meta">Last run: <strong>2026-08-03 14:57 UTC</strong> &middot; source: <a href="https://github.com/orgs/kubernetes/projects/264/views/5" target="_blank" rel="noopener">Release Tracking board, view 5</a> &middot; rebuilds every 6h via GitHub Actions</div>
 
 <div class="stats"><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#22C55E"></span>Ready for review</div></div><div class="stat"><div class="stat-num">9</div><div class="stat-label"><span class="dot" style="background:#F59E0B"></span>Review in progress</div></div><div class="stat"><div class="stat-num">4</div><div class="stat-label"><span class="dot" style="background:#A78BFA"></span>Draft</div></div><div class="stat"><div class="stat-num">3</div><div class="stat-label"><span class="dot" style="background:#EF4444"></span>No content</div></div><div class="stat"><div class="stat-num">2</div><div class="stat-label"><span class="dot" style="background:#94A3B8"></span>Placeholder</div></div></div>
 
 <div class="controls">
-  <div class="chips" role="group" aria-label="Filter by status"><button class="chip is-active" data-filter="all" type="button">All (20)</button><button class="chip" data-filter="ready-for-review" type="button"><span class="dot" style="background:#22C55E"></span>Ready for review (2)</button><button class="chip" data-filter="review-in-progress" type="button"><span class="dot" style="background:#F59E0B"></span>Review in progress (9)</button><button class="chip" data-filter="draft" type="button"><span class="dot" style="background:#A78BFA"></span>Draft (4)</button><button class="chip" data-filter="no-content" type="button"><span class="dot" style="background:#EF4444"></span>No content (3)</button><button class="chip" data-filter="placeholder" type="button"><span class="dot" style="background:#94A3B8"></span>Placeholder (2)</button></div>
-  <div class="group-by">
-    <label class="group-label" for="group-select">Group by</label>
-    <select class="group-select" id="group-select">
-      <option value="none">None</option>
-      <option value="pr_number">Blog PR</option>
-      <option value="status">Status</option>
-      <option value="sig">SIG</option>
-      <option value="stage">Stage</option>
-      <option value="comms_editor">Comms Editor</option>
-      <option value="published">Published</option>
-    </select>
+  <div class="controls-top">
+    <div class="group-by">
+      <label class="group-label" for="group-select">Group by</label>
+      <select class="group-select" id="group-select">
+        <option value="none">None</option>
+        <option value="pr_number">Blog PR</option>
+        <option value="status">Status</option>
+        <option value="sig">SIG</option>
+        <option value="stage">Stage</option>
+        <option value="comms_editor">Comms Editor</option>
+        <option value="published">Published</option>
+      </select>
+    </div>
+    <button class="chip chip-clear" id="clear-filters-chip" type="button">Clear filters</button>
+    <input class="search" type="search" placeholder="Filter by KEP or PR title..." aria-label="Filter by KEP or PR title" id="search-input">
   </div>
-  <input class="search" type="search" placeholder="Filter by KEP or PR title..." aria-label="Filter by KEP or PR title" id="search-input">
+  <div class="filter-groups">
+    <div class="chip-group" role="group" aria-label="Filter by status"><span class="chip-group-label">Status</span><button class="chip" data-dim="status" data-value="ready-for-review" type="button"><span class="dot" style="background:#22C55E"></span>Ready for review (2)</button><button class="chip" data-dim="status" data-value="review-in-progress" type="button"><span class="dot" style="background:#F59E0B"></span>Review in progress (9)</button><button class="chip" data-dim="status" data-value="draft" type="button"><span class="dot" style="background:#A78BFA"></span>Draft (4)</button><button class="chip" data-dim="status" data-value="no-content" type="button"><span class="dot" style="background:#EF4444"></span>No content (3)</button><button class="chip" data-dim="status" data-value="placeholder" type="button"><span class="dot" style="background:#94A3B8"></span>Placeholder (2)</button></div>
+    <div class="chip-group" role="group" aria-label="Filter by SIG"><span class="chip-group-label">SIG</span><button class="chip" data-dim="sig" data-value="sig-api-machinery" type="button">sig-api-machinery</button><button class="chip" data-dim="sig" data-value="sig-apps" type="button">sig-apps</button><button class="chip" data-dim="sig" data-value="sig-auth" type="button">sig-auth</button><button class="chip" data-dim="sig" data-value="sig-autoscaling" type="button">sig-autoscaling</button><button class="chip" data-dim="sig" data-value="sig-etcd" type="button">sig-etcd</button><button class="chip" data-dim="sig" data-value="sig-instrumentation" type="button">sig-instrumentation</button><button class="chip" data-dim="sig" data-value="sig-network" type="button">sig-network</button><button class="chip" data-dim="sig" data-value="sig-node" type="button">sig-node</button><button class="chip" data-dim="sig" data-value="sig-scheduling" type="button">sig-scheduling</button><button class="chip" data-dim="sig" data-value="sig-storage" type="button">sig-storage</button></div>
+    <div class="chip-group" role="group" aria-label="Filter by Stage"><span class="chip-group-label">Stage</span><button class="chip" data-dim="stage" data-value="Alpha" type="button">Alpha</button><button class="chip" data-dim="stage" data-value="Beta" type="button">Beta</button><button class="chip" data-dim="stage" data-value="Stable" type="button">Stable</button><button class="chip" data-dim="stage" data-value="Deprecation/Removal" type="button">Deprecation/Removal</button></div>
+    <div class="chip-group" role="group" aria-label="Filter by Comms Editor"><span class="chip-group-label">Comms Editor</span><button class="chip" data-dim="editor" data-value="RinkiyaKeDad" type="button">RinkiyaKeDad</button><button class="chip" data-dim="editor" data-value="SophiaUgo" type="button">SophiaUgo</button><button class="chip" data-dim="editor" data-value="SwathiR03" type="button">SwathiR03</button><button class="chip" data-dim="editor" data-value="TineoC" type="button">TineoC</button><button class="chip" data-dim="editor" data-value="kirti763" type="button">kirti763</button><button class="chip" data-dim="editor" data-value="troy0820" type="button">troy0820</button></div>
+    
+  </div>
 </div>
 
 <div class="table-wrap">
 <table id="pr-table">
-  <thead><tr><th>k/enhancements issue</th><th>k/website docs PR</th><th>k/website blog PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th></tr></thead>
+  <thead><tr>
+    <th title="k/enhancements tracking issue">Enh</th>
+    <th title="k/website docs PR">Docs</th>
+    <th title="k/website blog PR">Blog</th>
+    <th class="sortable" data-sort-key="kep">KEP(s)<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="sig">SIG<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="editor">Comms Editor<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="stage">Stage<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="status">Status<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="publish_date">Publish date<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="published">Published<span class="sort-indicator"></span></th>
+  </tr></thead>
   <tbody id="pr-tbody"></tbody>
 </table>
 </div>
@@ -145,20 +186,33 @@
 (function () {
   var ROWS = [{"pr_number": 56420, "pr_url": "https://github.com/kubernetes/website/pull/56420", "pr_title": "blog for KEP-2033: Kubelet-in-UserNS, aka Rootless mode", "keps": [{"number": "2033", "title": "sig-node: Kubelet-in-UserNS, aka Rootless mode", "tracking_url": "https://github.com/kubernetes/enhancements/issues/2033", "docs_pr": "https://github.com/kubernetes/website/pull/52732"}], "sig": "sig-node", "comms_editor": "RinkiyaKeDad", "stage": "Beta", "status": "Ready for review", "status_slug": "ready-for-review", "dot_color": "#22C55E", "publish_date": "", "published": "Not yet published", "is_closed": false}, {"pr_number": 56446, "pr_url": "https://github.com/kubernetes/website/pull/56446", "pr_title": "Add blog for KEP-5207: metrics.k8s.io/v1 GA", "keps": [{"number": "5207", "title": "metrics.k8s.io API definition", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5207", "docs_pr": "https://github.com/kubernetes/website/pull/56349"}], "sig": "sig-instrumentation", "comms_editor": "SophiaUgo", "stage": "Stable", "status": "Ready for review", "status_slug": "ready-for-review", "dot_color": "#22C55E", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56207, "pr_url": "https://github.com/kubernetes/website/pull/56207", "pr_title": "Add blog post for KEP-5541: PVC last used time", "keps": [{"number": "5541", "title": "Report last used time on a PVC", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5541", "docs_pr": "https://github.com/kubernetes/website/pull/56085"}], "sig": "sig-storage", "comms_editor": "troy0820", "stage": "Beta", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Not yet published", "is_closed": false}, {"pr_number": 56215, "pr_url": "https://github.com/kubernetes/website/pull/56215", "pr_title": "Add Workload Aware Scheduling v1.37 blog post placeholder", "keps": [{"number": "4671", "title": "Gang Scheduling Support in Kubernetes", "tracking_url": "https://github.com/kubernetes/enhancements/issues/4671", "docs_pr": "https://github.com/kubernetes/website/pull/56636"}, {"number": "6012", "title": "CompositePodGroup API", "tracking_url": "https://github.com/kubernetes/enhancements/issues/6012", "docs_pr": "https://github.com/kubernetes/website/pull/56248"}, {"number": "5710", "title": "Workload-aware preemption", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5710", "docs_pr": "https://github.com/kubernetes/website/pull/56236"}, {"number": "5547", "title": "WAS: Integrate Workload APIs with Job controller", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5547", "docs_pr": "https://github.com/kubernetes/website/pull/56327"}, {"number": "5729", "title": "DRA: ResourceClaim Support for Workloads", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5729", "docs_pr": "https://github.com/kubernetes/website/pull/56184"}], "sig": "sig-scheduling; sig-apps", "comms_editor": "TineoC", "stage": "Beta; Alpha", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56267, "pr_url": "https://github.com/kubernetes/website/pull/56267", "pr_title": "Node Lifecycle Conditions Blog", "keps": [{"number": "5683", "title": "Specialized Lifecycle Management", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5683", "docs_pr": "https://github.com/kubernetes/website/pull/56268"}], "sig": "sig-node", "comms_editor": "TineoC", "stage": "Alpha", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56290, "pr_url": "https://github.com/kubernetes/website/pull/56290", "pr_title": "KEP-2021: Scale Workloads to Zero with HorizontalPodAutoscaler", "keps": [{"number": "2021", "title": "Support scaling to/from zero pods for object/external metrics", "tracking_url": "https://github.com/kubernetes/enhancements/issues/2021", "docs_pr": "https://github.com/kubernetes/website/pull/56289"}], "sig": "sig-autoscaling", "comms_editor": "RinkiyaKeDad", "stage": "Beta", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56351, "pr_url": "https://github.com/kubernetes/website/pull/56351", "pr_title": "Kubernetes v1.37 DRA feature blog", "keps": [{"number": "5517", "title": "DRA: Node Allocatable Resource Requests", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5517", "docs_pr": "https://github.com/kubernetes/website/pull/56318"}, {"number": "5677", "title": "DRA: Resource Availability Visibility", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5677", "docs_pr": "https://github.com/kubernetes/website/pull/56352"}, {"number": "5945", "title": "DRA: Optional Node Preparation", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5945", "docs_pr": "https://github.com/kubernetes/website/pull/56258"}, {"number": "6072", "title": "DRA: Standard numaNode Device Attribute", "tracking_url": "https://github.com/kubernetes/enhancements/issues/6072", "docs_pr": "https://github.com/kubernetes/website/pull/56256"}, {"number": "5004", "title": "DRA: Handle extended resource requests via DRA Driver", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5004", "docs_pr": "https://github.com/kubernetes/website/pull/55959"}], "sig": "sig-scheduling; sig-node", "comms_editor": "SwathiR03", "stage": "Alpha; Stable", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56360, "pr_url": "https://github.com/kubernetes/website/pull/56360", "pr_title": "KEP-5526: Pod Level Resource Managers blog 1.37", "keps": [{"number": "5526", "title": "Pod Level Resource Managers", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5526", "docs_pr": "https://github.com/kubernetes/website/pull/56359"}], "sig": "sig-node", "comms_editor": "SwathiR03", "stage": "Beta", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56455, "pr_url": "https://github.com/kubernetes/website/pull/56455", "pr_title": "Blog post for Native Histograms", "keps": [{"number": "5808", "title": "Native Histogram Support for Kubernetes Metrics", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5808", "docs_pr": "https://github.com/kubernetes/website/pull/56335"}], "sig": "sig-instrumentation", "comms_editor": "SophiaUgo", "stage": "Beta", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56461, "pr_url": "https://github.com/kubernetes/website/pull/56461", "pr_title": "Blog for KEP-5836: Scheduler Preemption for In-Place Pod Resize (alpha)", "keps": [{"number": "5836", "title": "Scheduler Preemption for In-Place Pod Resize", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5836", "docs_pr": "https://github.com/kubernetes/website/pull/56348"}], "sig": "sig-scheduling", "comms_editor": "SwathiR03", "stage": "Alpha", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "XXXX-XX-XX", "published": "Draft", "is_closed": false}, {"pr_number": 56483, "pr_url": "https://github.com/kubernetes/website/pull/56483", "pr_title": "Add post-release blog for KEP-4192: In Tree Storage Version Migration", "keps": [{"number": "4192", "title": "Move Storage Version Migrator in-tree", "tracking_url": "https://github.com/kubernetes/enhancements/issues/4192", "docs_pr": "https://github.com/kubernetes/website/pull/56310"}], "sig": "sig-api-machinery", "comms_editor": "SwathiR03", "stage": "Stable", "status": "Review in progress", "status_slug": "review-in-progress", "dot_color": "#F59E0B", "publish_date": "XXX", "published": "Not yet published", "is_closed": false}, {"pr_number": 56283, "pr_url": "https://github.com/kubernetes/website/pull/56283", "pr_title": "[WIP] memoryqos v1.37 blog", "keps": [{"number": "2570", "title": "Support memory qos with cgroups v2", "tracking_url": "https://github.com/kubernetes/enhancements/issues/2570", "docs_pr": "https://github.com/kubernetes/website/pull/56261"}], "sig": "sig-node", "comms_editor": "TineoC", "stage": "Beta", "status": "Draft", "status_slug": "draft", "dot_color": "#A78BFA", "publish_date": "2026-07-28", "published": "Draft", "is_closed": false}, {"pr_number": 56316, "pr_url": "https://github.com/kubernetes/website/pull/56316", "pr_title": "[WIP] Feature blog: etcd RangeStream (Kubernetes v1.37)", "keps": [{"number": "5966", "title": "etcd RangeStream", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5966", "docs_pr": "https://github.com/kubernetes/website/pull/56314"}], "sig": "sig-etcd", "comms_editor": "kirti763", "stage": "Beta", "status": "Draft", "status_slug": "draft", "dot_color": "#A78BFA", "publish_date": "", "published": "Draft", "is_closed": false}, {"pr_number": 56422, "pr_url": "https://github.com/kubernetes/website/pull/56422", "pr_title": "KEP-5495: blog post about IPVS deprecation", "keps": [{"number": "5495", "title": "Remove ipvs mode in kube-proxy", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5495", "docs_pr": "https://github.com/kubernetes/website/pull/56172"}], "sig": "sig-network", "comms_editor": "kirti763", "stage": "Deprecation/Removal", "status": "Draft", "status_slug": "draft", "dot_color": "#A78BFA", "publish_date": "2026-xx-xx", "published": "Draft", "is_closed": false}, {"pr_number": 56425, "pr_url": "https://github.com/kubernetes/website/pull/56425", "pr_title": "[WIP] Add blog for reworked volume health", "keps": [{"number": "1432", "title": "PV Health Monitor", "tracking_url": "https://github.com/kubernetes/enhancements/issues/1432", "docs_pr": "https://github.com/kubernetes/website/pull/56330"}], "sig": "sig-storage", "comms_editor": "RinkiyaKeDad", "stage": "Alpha", "status": "Draft", "status_slug": "draft", "dot_color": "#A78BFA", "publish_date": "2026-07-07", "published": "Not yet published", "is_closed": false}, {"pr_number": 53088, "pr_url": "https://github.com/kubernetes/website/pull/53088", "pr_title": "Add blog article about for volume limit aware autoscaling", "keps": [{"number": "5030", "title": "Integrate CSI Volume attach limits with cluster autoscaler", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5030", "docs_pr": "https://github.com/kubernetes/website/pull/56365"}], "sig": "sig-autoscaling", "comms_editor": "kirti763", "stage": "Beta", "status": "No content", "status_slug": "no-content", "dot_color": "#EF4444", "publish_date": "2025-0X-XXT09:00:00-08:00", "published": "Draft", "is_closed": false}, {"pr_number": 56312, "pr_url": "https://github.com/kubernetes/website/pull/56312", "pr_title": "[WIP] Pod Certificate / Cluster Trust Bundleblog Blog", "keps": [{"number": "3257", "title": "ClusterTrustBundles (previously Trust Anchor Sets)", "tracking_url": "https://github.com/kubernetes/enhancements/issues/3257", "docs_pr": "https://github.com/kubernetes/website/pull/56358"}, {"number": "4317", "title": "Pod Certificates", "tracking_url": "https://github.com/kubernetes/enhancements/issues/4317", "docs_pr": "https://github.com/kubernetes/website/pull/56358"}], "sig": "sig-auth", "comms_editor": "troy0820", "stage": "Stable", "status": "No content", "status_slug": "no-content", "dot_color": "#EF4444", "publish_date": "2026-XX-XX", "published": "Draft", "is_closed": false}, {"pr_number": 56401, "pr_url": "https://github.com/kubernetes/website/pull/56401", "pr_title": "[WIP] KEP-6060: Blog Entry", "keps": [{"number": "6060", "title": "API Server Authentication to Webhooks", "tracking_url": "https://github.com/kubernetes/enhancements/issues/6060", "docs_pr": "https://github.com/kubernetes/website/pull/56400"}], "sig": "sig-auth", "comms_editor": "troy0820", "stage": "Alpha", "status": "No content", "status_slug": "no-content", "dot_color": "#EF4444", "publish_date": "", "published": "Not yet published", "is_closed": false}, {"pr_number": 56457, "pr_url": "https://github.com/kubernetes/website/pull/56457", "pr_title": "[Placeholder] Blog for KEP-5855: Add bind mount options to VolumeMount", "keps": [{"number": "5855", "title": "Add bind mount options (noexec, nodev, nosuid) support on volumeMounts", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5855", "docs_pr": "https://github.com/kubernetes/website/pull/56321"}], "sig": "sig-node", "comms_editor": "SophiaUgo", "stage": "Alpha", "status": "Placeholder", "status_slug": "placeholder", "dot_color": "#94A3B8", "publish_date": "", "published": "Not yet published", "is_closed": false}, {"pr_number": 56458, "pr_url": "https://github.com/kubernetes/website/pull/56458", "pr_title": "[Placeholder] Blog for KEP-6035: Exec session identity propagation", "keps": [{"number": "5502", "title": "Add stickyBit support for emptydir volumes", "tracking_url": "https://github.com/kubernetes/enhancements/issues/5502", "docs_pr": "https://github.com/kubernetes/website/pull/56324"}], "sig": "sig-storage", "comms_editor": "RinkiyaKeDad", "stage": "Alpha", "status": "Placeholder", "status_slug": "placeholder", "dot_color": "#94A3B8", "publish_date": "", "published": "Draft", "is_closed": false}];
   var KEP_BASE_URL = "https://k8s.dev/resources/keps/";
+  var STATUS_ORDER = ["Merged", "Ready for review", "Review in progress", "Draft", "No content", "Placeholder"];
+  var ICON_ENHANCEMENT = "<svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M1.5 4a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2.4a1.35 1.35 0 0 0 0 2.6V11.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V9a1.35 1.35 0 0 0 0-2.6z\"/><path d=\"M6 3.2v9.6\" stroke-dasharray=\"1.6 1.6\"/></svg>";
+  var ICON_DOCS = "<svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 1.5h5L12 4.5v9a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13z\"/><path d=\"M9 1.5V4a.5.5 0 0 0 .5.5H12\"/><path d=\"M5.8 7.2h4.4M5.8 9.4h4.4M5.8 11.6h2.8\"/></svg>";
+  var ICON_BLOG = "<svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M1.8 6.2 12.5 2v12L1.8 9.8z\"/><path d=\"M1.8 6.2v3.6l1.4.6v3.1a.9.9 0 0 0 .9.9h1\"/></svg>";
+  var STAGE_COLOR = {"Alpha": "#A78BFA", "Beta": "#38BDF8", "Stable": "#22C55E", "Deprecation/Removal": "#F97316"};
 
-  var statusChips = document.querySelectorAll('.chip:not(.chip-closed)');
-  var closedChip = document.querySelector('.chip-closed');
   var searchInput = document.getElementById('search-input');
   var groupSelect = document.getElementById('group-select');
   var tbody = document.getElementById('pr-tbody');
   var emptyState = document.getElementById('empty-state');
-  var activeFilter = 'all';
+  var clearChip = document.getElementById('clear-filters-chip');
+  var closedChip = document.querySelector('.chip-closed');
+  var dimChips = document.querySelectorAll('.chip[data-dim]');
+  var sortableHeaders = document.querySelectorAll('th.sortable');
+
+  var activeFilters = { status: new Set(), sig: new Set(), stage: new Set(), editor: new Set() };
   var showClosed = false;
+  var sortState = { key: null, dir: 0 };
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  function splitMulti(value) {
+    return (value || '').split(';').map(function (s) { return s.trim(); }).filter(Boolean);
   }
 
   function kepLinks(keps) {
@@ -168,25 +222,44 @@
     }).join('');
   }
 
-  function urlLinks(keps, field, label) {
+  function iconLinks(keps, field, iconSvg, label) {
     return keps.map(function (k) {
       var url = k[field];
-      if (!url) return '<span class="kep-link">&mdash;</span>';
-      var num = url.split('/').pop();
-      var text = label + (num ? ' #' + num : '');
-      return '<a class="kep-link" href="' + url + '" target="_blank" rel="noopener">' + escapeHtml(text) + '</a>';
+      var num = url ? url.split('/').pop() : '';
+      var title = label + (num ? ' #' + num : ' — none');
+      if (!url) {
+        return '<span class="icon-link icon-muted" title="' + escapeHtml(title) + '">' + iconSvg + '</span>';
+      }
+      return '<a class="icon-link" href="' + url + '" target="_blank" rel="noopener" title="' + escapeHtml(title) + '" aria-label="' + escapeHtml(title) + '">' + iconSvg + '</a>';
+    }).join('');
+  }
+
+  function pillList(value) {
+    var values = splitMulti(value);
+    if (!values.length) return '&mdash;';
+    return values.map(function (v) {
+      return '<span class="pill">' + escapeHtml(v) + '</span>';
+    }).join('');
+  }
+
+  function stagePills(value) {
+    var values = splitMulti(value);
+    if (!values.length) return '&mdash;';
+    return values.map(function (v) {
+      var color = STAGE_COLOR[v] || '#94A3B8';
+      return '<span class="pill" style="border-color:' + color + ';color:' + color + '">' + escapeHtml(v) + '</span>';
     }).join('');
   }
 
   function rowHtml(r) {
     return '<tr class="status-' + r.status_slug + (r.is_closed ? ' is-closed' : '') + '">' +
-      '<td>' + urlLinks(r.keps, 'tracking_url', 'k/enhancements') + '</td>' +
-      '<td>' + urlLinks(r.keps, 'docs_pr', 'k/website') + '</td>' +
-      '<td class="mono"><a href="' + r.pr_url + '" target="_blank" rel="noopener">#' + r.pr_number + '</a></td>' +
+      '<td>' + iconLinks(r.keps, 'tracking_url', ICON_ENHANCEMENT, 'k/enhancements') + '</td>' +
+      '<td>' + iconLinks(r.keps, 'docs_pr', ICON_DOCS, 'k/website docs') + '</td>' +
+      '<td><a class="icon-link" href="' + r.pr_url + '" target="_blank" rel="noopener" title="k/website blog #' + r.pr_number + '" aria-label="k/website blog #' + r.pr_number + '">' + ICON_BLOG + '</a></td>' +
       '<td>' + kepLinks(r.keps) + '</td>' +
-      '<td>' + (escapeHtml(r.sig) || '&mdash;') + '</td>' +
-      '<td>' + (escapeHtml(r.comms_editor) || '&mdash;') + '</td>' +
-      '<td>' + (escapeHtml(r.stage) || '&mdash;') + '</td>' +
+      '<td>' + pillList(r.sig) + '</td>' +
+      '<td>' + pillList(r.comms_editor) + '</td>' +
+      '<td>' + stagePills(r.stage) + '</td>' +
       '<td><span class="status-badge"><span class="dot" style="background:' + r.dot_color + '"></span>' + escapeHtml(r.status) + '</span></td>' +
       '<td class="mono">' + (escapeHtml(r.publish_date) || '&mdash;') + '</td>' +
       '<td>' + escapeHtml(r.published) + '</td>' +
@@ -199,15 +272,58 @@
 
   function matchesRow(r, term) {
     if (r.is_closed && !showClosed) return false;
-    if (activeFilter !== 'all' && r.status_slug !== activeFilter) return false;
+    if (activeFilters.status.size && !activeFilters.status.has(r.status_slug)) return false;
+    if (activeFilters.sig.size && !splitMulti(r.sig).some(function (v) { return activeFilters.sig.has(v); })) return false;
+    if (activeFilters.stage.size && !splitMulti(r.stage).some(function (v) { return activeFilters.stage.has(v); })) return false;
+    if (activeFilters.editor.size && !splitMulti(r.comms_editor).some(function (v) { return activeFilters.editor.has(v); })) return false;
     if (!term) return true;
     var blob = [r.pr_title, r.sig, r.comms_editor].concat(r.keps.map(function (k) { return k.title; })).join(' ').toLowerCase();
     return blob.indexOf(term) !== -1;
   }
 
+  var SORT_KEYS = {
+    kep: function (r) { return ((r.keps[0] && r.keps[0].title) || '').toLowerCase(); },
+    sig: function (r) { return (r.sig || '').toLowerCase(); },
+    editor: function (r) { return (r.comms_editor || '').toLowerCase(); },
+    stage: function (r) { return (r.stage || '').toLowerCase(); },
+    status: function (r) {
+      var idx = STATUS_ORDER.indexOf(r.status.replace(' (closed)', ''));
+      return idx === -1 ? STATUS_ORDER.length : idx;
+    },
+    publish_date: function (r) { return r.publish_date || '￿'; },
+    published: function (r) { return (r.published || '').toLowerCase(); },
+  };
+
+  function applySort(rows) {
+    if (!sortState.key || !sortState.dir) return rows;
+    var keyFn = SORT_KEYS[sortState.key];
+    return rows.slice().sort(function (a, b) {
+      var av = keyFn(a), bv = keyFn(b);
+      if (av < bv) return -1 * sortState.dir;
+      if (av > bv) return 1 * sortState.dir;
+      return 0;
+    });
+  }
+
+  function updateSortIndicators() {
+    sortableHeaders.forEach(function (th) {
+      var ind = th.querySelector('.sort-indicator');
+      if (th.dataset.sortKey === sortState.key && sortState.dir) {
+        ind.textContent = sortState.dir === 1 ? '▲' : '▼';
+      } else {
+        ind.textContent = '';
+      }
+    });
+  }
+
+  function updateClearChip() {
+    var any = Object.keys(activeFilters).some(function (d) { return activeFilters[d].size > 0; });
+    clearChip.classList.toggle('is-visible', any);
+  }
+
   function render() {
     var term = searchInput.value.trim().toLowerCase();
-    var visible = ROWS.filter(function (r) { return matchesRow(r, term); });
+    var visible = applySort(ROWS.filter(function (r) { return matchesRow(r, term); }));
     var groupBy = groupSelect.value;
     var html;
 
@@ -221,7 +337,9 @@
         if (!groups[key]) { groups[key] = []; order.push(key); }
         groups[key].push(r);
       });
-      order.sort(groupBy === 'pr_number' ? function (a, b) { return a - b; } : undefined);
+      if (!sortState.key) {
+        order.sort(groupBy === 'pr_number' ? function (a, b) { return a - b; } : undefined);
+      }
       html = order.map(function (key) {
         var label = groupBy === 'pr_number' ? '#' + key : key;
         return groupHeaderHtml(label, groups[key].length) + groups[key].map(rowHtml).join('');
@@ -232,13 +350,27 @@
     emptyState.style.display = visible.length === 0 ? 'block' : 'none';
   }
 
-  statusChips.forEach(function (chip) {
+  dimChips.forEach(function (chip) {
     chip.addEventListener('click', function () {
-      statusChips.forEach(function (c) { c.classList.remove('is-active'); });
-      chip.classList.add('is-active');
-      activeFilter = chip.dataset.filter;
+      var dim = chip.dataset.dim, val = chip.dataset.value;
+      var set = activeFilters[dim];
+      if (set.has(val)) {
+        set.delete(val);
+        chip.classList.remove('is-active');
+      } else {
+        set.add(val);
+        chip.classList.add('is-active');
+      }
+      updateClearChip();
       render();
     });
+  });
+
+  clearChip.addEventListener('click', function () {
+    Object.keys(activeFilters).forEach(function (d) { activeFilters[d].clear(); });
+    dimChips.forEach(function (c) { c.classList.remove('is-active'); });
+    updateClearChip();
+    render();
   });
 
   if (closedChip) {
@@ -248,6 +380,23 @@
       render();
     });
   }
+
+  sortableHeaders.forEach(function (th) {
+    th.addEventListener('click', function () {
+      var key = th.dataset.sortKey;
+      if (sortState.key !== key) {
+        sortState.key = key;
+        sortState.dir = 1;
+      } else if (sortState.dir === 1) {
+        sortState.dir = -1;
+      } else {
+        sortState.key = null;
+        sortState.dir = 0;
+      }
+      updateSortIndicators();
+      render();
+    });
+  });
 
   searchInput.addEventListener('input', render);
   groupSelect.addEventListener('change', render);

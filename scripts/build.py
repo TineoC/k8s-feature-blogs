@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Fetch k8s v1.37 Feature Blog PR status from GitHub Project 264 and render docs/index.html + docs/data.json."""
+import html
 import json
 import re
 import subprocess
@@ -197,7 +198,70 @@ def status_dot_color(status):
     return STATUS_DOT.get(status.replace(" (closed)", ""), "#94A3B8")
 
 
+STAGE_ORDER = ["Alpha", "Beta", "Stable", "Deprecation/Removal"]
+
+STAGE_COLOR = {
+    "Alpha": "#A78BFA",
+    "Beta": "#38BDF8",
+    "Stable": "#22C55E",
+    "Deprecation/Removal": "#F97316",
+}
+
+
+def stage_color(stage):
+    return STAGE_COLOR.get(stage, "#94A3B8")
+
+
+def stage_sort_key(stage):
+    try:
+        return STAGE_ORDER.index(stage)
+    except ValueError:
+        return len(STAGE_ORDER)
+
+
+def split_multi(value):
+    return [v.strip() for v in (value or "").split(";") if v.strip()]
+
+
+def chip_group_html(dimension, label, values):
+    if not values:
+        return ""
+    buttons = "".join(
+        f'<button class="chip" data-dim="{dimension}" data-value="{html.escape(v)}" type="button">{html.escape(v)}</button>'
+        for v in values
+    )
+    return (
+        f'<div class="chip-group" role="group" aria-label="Filter by {html.escape(label)}">'
+        f'<span class="chip-group-label">{html.escape(label)}</span>{buttons}</div>'
+    )
+
+
 KEP_BASE_URL = "https://k8s.dev/resources/keps/"
+
+ICON_ENHANCEMENT = (
+    '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" '
+    'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M1.5 4a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v2.4a1.35 1.35 0 0 0 0 2.6V11.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V9a1.35 1.35 0 0 0 0-2.6z"/>'
+    '<path d="M6 3.2v9.6" stroke-dasharray="1.6 1.6"/>'
+    "</svg>"
+)
+
+ICON_DOCS = (
+    '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" '
+    'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M4 1.5h5L12 4.5v9a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13z"/>'
+    '<path d="M9 1.5V4a.5.5 0 0 0 .5.5H12"/>'
+    '<path d="M5.8 7.2h4.4M5.8 9.4h4.4M5.8 11.6h2.8"/>'
+    "</svg>"
+)
+
+ICON_BLOG = (
+    '<svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" '
+    'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M1.8 6.2 12.5 2v12L1.8 9.8z"/>'
+    '<path d="M1.8 6.2v3.6l1.4.6v3.1a.9.9 0 0 0 .9.9h1"/>'
+    "</svg>"
+)
 
 
 def render_html(data):
@@ -211,16 +275,28 @@ def render_html(data):
         open_summary[r["status"]] += 1
     statuses_present = sorted(open_summary.keys(), key=status_sort_key)
 
-    filter_buttons = '<button class="chip is-active" data-filter="all" type="button">All ({})</button>'.format(
-        len(open_rows)
-    ) + "".join(
-        f'<button class="chip" data-filter="{slugify(status)}" type="button">'
+    status_chips = "".join(
+        f'<button class="chip" data-dim="status" data-value="{slugify(status)}" type="button">'
         f'<span class="dot" style="background:{status_dot_color(status)}"></span>{status} ({open_summary[status]})</button>'
         for status in statuses_present
-    ) + (
+    )
+    status_group = (
+        '<div class="chip-group" role="group" aria-label="Filter by status">'
+        f'<span class="chip-group-label">Status</span>{status_chips}</div>'
+    )
+
+    closed_chip = (
         f'<button class="chip chip-closed" data-filter="__closed__" type="button">'
         f'Show closed ({closed_count})</button>' if closed_count else ""
     )
+
+    sig_values = sorted({v for r in all_rows for v in split_multi(r["sig"])})
+    stage_values = sorted({v for r in all_rows for v in split_multi(r["stage"])}, key=stage_sort_key)
+    editor_values = sorted({v for r in all_rows for v in split_multi(r["comms_editor"])})
+
+    sig_group = chip_group_html("sig", "SIG", sig_values)
+    stage_group = chip_group_html("stage", "Stage", stage_values)
+    editor_group = chip_group_html("editor", "Comms Editor", editor_values)
 
     summary_cells = "".join(
         f'<div class="stat"><div class="stat-num">{count}</div><div class="stat-label">'
@@ -307,19 +383,27 @@ def render_html(data):
   .stat-num {{ font-family: var(--font-mono); font-size: 1.5rem; font-weight: 600; }}
   .stat-label {{ font-size: 0.75rem; color: var(--color-foreground); opacity: 0.75; display: flex; align-items: center; margin-top: 4px; }}
 
-  .controls {{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }}
-  .chips {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+  .controls {{ display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); }}
+  .controls-top {{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }}
+  .filter-groups {{ display: flex; flex-direction: column; gap: 6px; }}
+  .chip-group {{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }}
+  .chip-group-label {{
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.6;
+    min-width: 92px; flex-shrink: 0;
+  }}
   .chip {{
-    display: inline-flex; align-items: center; font: inherit; font-size: 0.8rem;
+    display: inline-flex; align-items: center; font: inherit; font-size: 0.78rem;
     background: var(--color-muted); color: var(--color-foreground); border: 1px solid var(--color-border);
-    border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
-    min-height: 32px;
+    border-radius: 999px; padding: 5px 11px; cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
+    min-height: 30px;
   }}
   .chip:hover {{ border-color: var(--color-accent); }}
   .chip:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
   .chip.is-active {{ background: var(--color-accent); color: #05220f; border-color: var(--color-accent); font-weight: 600; }}
   .chip-closed {{ opacity: 0.75; }}
   .chip-closed.is-active {{ background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; opacity: 1; }}
+  .chip-clear {{ background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; display: none; }}
+  .chip-clear.is-visible {{ display: inline-flex; }}
   tr.is-closed {{ opacity: 0.7; }}
 
   .search, .group-select {{
@@ -338,12 +422,24 @@ def render_html(data):
   table {{ border-collapse: collapse; width: 100%; font-size: 0.85rem; min-width: 560px; }}
   th, td {{ text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; }}
   th {{ background: var(--color-muted); position: sticky; top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-foreground); opacity: 0.8; white-space: nowrap; }}
+  th.sortable {{ cursor: pointer; user-select: none; }}
+  th.sortable:hover {{ color: var(--color-accent); }}
+  th .sort-indicator {{ margin-left: 4px; opacity: 0.7; }}
+  th[title] {{ cursor: help; }}
   tbody tr:hover {{ background: var(--color-muted); }}
   tbody tr[hidden] {{ display: none; }}
   tr.group-header td {{ background: var(--color-primary); font-weight: 600; font-size: 0.8rem; padding: 8px 12px; border-bottom: 1px solid var(--color-border); }}
   .status-badge {{ display: inline-flex; align-items: center; font-weight: 600; white-space: nowrap; }}
   .kep-link {{ display: block; }}
   .kep-link + .kep-link {{ margin-top: 4px; }}
+  .icon-link {{ display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; color: var(--color-accent); }}
+  .icon-link + .icon-link {{ margin-top: 4px; }}
+  .icon-link.icon-muted {{ color: var(--color-foreground); opacity: 0.3; }}
+  .pill {{
+    display: inline-flex; align-items: center; font-size: 0.75rem; line-height: 1;
+    background: var(--color-muted); border: 1px solid var(--color-border); border-radius: 999px;
+    padding: 4px 9px; margin: 2px 4px 2px 0; white-space: nowrap;
+  }}
   a {{ color: var(--color-accent); text-decoration: none; }}
   a:hover, a:focus-visible {{ text-decoration: underline; }}
   a:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
@@ -354,10 +450,11 @@ def render_html(data):
     * {{ transition: none !important; }}
   }}
   @media (max-width: 640px) {{
-    .controls {{ flex-direction: column; align-items: stretch; }}
+    .controls-top {{ flex-direction: column; align-items: stretch; }}
     .search {{ margin-left: 0; width: 100%; }}
     .group-by {{ width: 100%; justify-content: space-between; }}
     .group-select {{ flex: 1; }}
+    .chip-group-label {{ min-width: 0; width: 100%; }}
   }}
 </style>
 </head>
@@ -368,25 +465,45 @@ def render_html(data):
 <div class="stats">{summary_cells}</div>
 
 <div class="controls">
-  <div class="chips" role="group" aria-label="Filter by status">{filter_buttons}</div>
-  <div class="group-by">
-    <label class="group-label" for="group-select">Group by</label>
-    <select class="group-select" id="group-select">
-      <option value="none">None</option>
-      <option value="pr_number">Blog PR</option>
-      <option value="status">Status</option>
-      <option value="sig">SIG</option>
-      <option value="stage">Stage</option>
-      <option value="comms_editor">Comms Editor</option>
-      <option value="published">Published</option>
-    </select>
+  <div class="controls-top">
+    <div class="group-by">
+      <label class="group-label" for="group-select">Group by</label>
+      <select class="group-select" id="group-select">
+        <option value="none">None</option>
+        <option value="pr_number">Blog PR</option>
+        <option value="status">Status</option>
+        <option value="sig">SIG</option>
+        <option value="stage">Stage</option>
+        <option value="comms_editor">Comms Editor</option>
+        <option value="published">Published</option>
+      </select>
+    </div>
+    <button class="chip chip-clear" id="clear-filters-chip" type="button">Clear filters</button>
+    <input class="search" type="search" placeholder="Filter by KEP or PR title..." aria-label="Filter by KEP or PR title" id="search-input">
   </div>
-  <input class="search" type="search" placeholder="Filter by KEP or PR title..." aria-label="Filter by KEP or PR title" id="search-input">
+  <div class="filter-groups">
+    {status_group}
+    {sig_group}
+    {stage_group}
+    {editor_group}
+    {closed_chip}
+  </div>
 </div>
 
 <div class="table-wrap">
 <table id="pr-table">
-  <thead><tr><th>k/enhancements issue</th><th>k/website docs PR</th><th>k/website blog PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th></tr></thead>
+  <thead><tr>
+    <th title="k/enhancements tracking issue">Enh</th>
+    <th title="k/website docs PR">Docs</th>
+    <th title="k/website blog PR">Blog</th>
+    <th class="sortable" data-sort-key="kep">KEP(s)<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="sig">SIG<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="editor">Comms Editor<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="stage">Stage<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="status">Status<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="publish_date">Publish date<span class="sort-indicator"></span></th>
+    <th class="sortable" data-sort-key="published">Published<span class="sort-indicator"></span></th>
+  </tr></thead>
   <tbody id="pr-tbody"></tbody>
 </table>
 </div>
@@ -396,20 +513,33 @@ def render_html(data):
 (function () {{
   var ROWS = {rows_json};
   var KEP_BASE_URL = {json.dumps(KEP_BASE_URL)};
+  var STATUS_ORDER = {json.dumps(STATUS_ORDER)};
+  var ICON_ENHANCEMENT = {json.dumps(ICON_ENHANCEMENT)};
+  var ICON_DOCS = {json.dumps(ICON_DOCS)};
+  var ICON_BLOG = {json.dumps(ICON_BLOG)};
+  var STAGE_COLOR = {json.dumps(STAGE_COLOR)};
 
-  var statusChips = document.querySelectorAll('.chip:not(.chip-closed)');
-  var closedChip = document.querySelector('.chip-closed');
   var searchInput = document.getElementById('search-input');
   var groupSelect = document.getElementById('group-select');
   var tbody = document.getElementById('pr-tbody');
   var emptyState = document.getElementById('empty-state');
-  var activeFilter = 'all';
+  var clearChip = document.getElementById('clear-filters-chip');
+  var closedChip = document.querySelector('.chip-closed');
+  var dimChips = document.querySelectorAll('.chip[data-dim]');
+  var sortableHeaders = document.querySelectorAll('th.sortable');
+
+  var activeFilters = {{ status: new Set(), sig: new Set(), stage: new Set(), editor: new Set() }};
   var showClosed = false;
+  var sortState = {{ key: null, dir: 0 }};
 
   function escapeHtml(s) {{
     return String(s).replace(/[&<>"']/g, function (c) {{
       return {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }}[c];
     }});
+  }}
+
+  function splitMulti(value) {{
+    return (value || '').split(';').map(function (s) {{ return s.trim(); }}).filter(Boolean);
   }}
 
   function kepLinks(keps) {{
@@ -419,25 +549,44 @@ def render_html(data):
     }}).join('');
   }}
 
-  function urlLinks(keps, field, label) {{
+  function iconLinks(keps, field, iconSvg, label) {{
     return keps.map(function (k) {{
       var url = k[field];
-      if (!url) return '<span class="kep-link">&mdash;</span>';
-      var num = url.split('/').pop();
-      var text = label + (num ? ' #' + num : '');
-      return '<a class="kep-link" href="' + url + '" target="_blank" rel="noopener">' + escapeHtml(text) + '</a>';
+      var num = url ? url.split('/').pop() : '';
+      var title = label + (num ? ' #' + num : ' — none');
+      if (!url) {{
+        return '<span class="icon-link icon-muted" title="' + escapeHtml(title) + '">' + iconSvg + '</span>';
+      }}
+      return '<a class="icon-link" href="' + url + '" target="_blank" rel="noopener" title="' + escapeHtml(title) + '" aria-label="' + escapeHtml(title) + '">' + iconSvg + '</a>';
+    }}).join('');
+  }}
+
+  function pillList(value) {{
+    var values = splitMulti(value);
+    if (!values.length) return '&mdash;';
+    return values.map(function (v) {{
+      return '<span class="pill">' + escapeHtml(v) + '</span>';
+    }}).join('');
+  }}
+
+  function stagePills(value) {{
+    var values = splitMulti(value);
+    if (!values.length) return '&mdash;';
+    return values.map(function (v) {{
+      var color = STAGE_COLOR[v] || '#94A3B8';
+      return '<span class="pill" style="border-color:' + color + ';color:' + color + '">' + escapeHtml(v) + '</span>';
     }}).join('');
   }}
 
   function rowHtml(r) {{
     return '<tr class="status-' + r.status_slug + (r.is_closed ? ' is-closed' : '') + '">' +
-      '<td>' + urlLinks(r.keps, 'tracking_url', 'k/enhancements') + '</td>' +
-      '<td>' + urlLinks(r.keps, 'docs_pr', 'k/website') + '</td>' +
-      '<td class="mono"><a href="' + r.pr_url + '" target="_blank" rel="noopener">#' + r.pr_number + '</a></td>' +
+      '<td>' + iconLinks(r.keps, 'tracking_url', ICON_ENHANCEMENT, 'k/enhancements') + '</td>' +
+      '<td>' + iconLinks(r.keps, 'docs_pr', ICON_DOCS, 'k/website docs') + '</td>' +
+      '<td><a class="icon-link" href="' + r.pr_url + '" target="_blank" rel="noopener" title="k/website blog #' + r.pr_number + '" aria-label="k/website blog #' + r.pr_number + '">' + ICON_BLOG + '</a></td>' +
       '<td>' + kepLinks(r.keps) + '</td>' +
-      '<td>' + (escapeHtml(r.sig) || '&mdash;') + '</td>' +
-      '<td>' + (escapeHtml(r.comms_editor) || '&mdash;') + '</td>' +
-      '<td>' + (escapeHtml(r.stage) || '&mdash;') + '</td>' +
+      '<td>' + pillList(r.sig) + '</td>' +
+      '<td>' + pillList(r.comms_editor) + '</td>' +
+      '<td>' + stagePills(r.stage) + '</td>' +
       '<td><span class="status-badge"><span class="dot" style="background:' + r.dot_color + '"></span>' + escapeHtml(r.status) + '</span></td>' +
       '<td class="mono">' + (escapeHtml(r.publish_date) || '&mdash;') + '</td>' +
       '<td>' + escapeHtml(r.published) + '</td>' +
@@ -450,15 +599,58 @@ def render_html(data):
 
   function matchesRow(r, term) {{
     if (r.is_closed && !showClosed) return false;
-    if (activeFilter !== 'all' && r.status_slug !== activeFilter) return false;
+    if (activeFilters.status.size && !activeFilters.status.has(r.status_slug)) return false;
+    if (activeFilters.sig.size && !splitMulti(r.sig).some(function (v) {{ return activeFilters.sig.has(v); }})) return false;
+    if (activeFilters.stage.size && !splitMulti(r.stage).some(function (v) {{ return activeFilters.stage.has(v); }})) return false;
+    if (activeFilters.editor.size && !splitMulti(r.comms_editor).some(function (v) {{ return activeFilters.editor.has(v); }})) return false;
     if (!term) return true;
     var blob = [r.pr_title, r.sig, r.comms_editor].concat(r.keps.map(function (k) {{ return k.title; }})).join(' ').toLowerCase();
     return blob.indexOf(term) !== -1;
   }}
 
+  var SORT_KEYS = {{
+    kep: function (r) {{ return ((r.keps[0] && r.keps[0].title) || '').toLowerCase(); }},
+    sig: function (r) {{ return (r.sig || '').toLowerCase(); }},
+    editor: function (r) {{ return (r.comms_editor || '').toLowerCase(); }},
+    stage: function (r) {{ return (r.stage || '').toLowerCase(); }},
+    status: function (r) {{
+      var idx = STATUS_ORDER.indexOf(r.status.replace(' (closed)', ''));
+      return idx === -1 ? STATUS_ORDER.length : idx;
+    }},
+    publish_date: function (r) {{ return r.publish_date || '￿'; }},
+    published: function (r) {{ return (r.published || '').toLowerCase(); }},
+  }};
+
+  function applySort(rows) {{
+    if (!sortState.key || !sortState.dir) return rows;
+    var keyFn = SORT_KEYS[sortState.key];
+    return rows.slice().sort(function (a, b) {{
+      var av = keyFn(a), bv = keyFn(b);
+      if (av < bv) return -1 * sortState.dir;
+      if (av > bv) return 1 * sortState.dir;
+      return 0;
+    }});
+  }}
+
+  function updateSortIndicators() {{
+    sortableHeaders.forEach(function (th) {{
+      var ind = th.querySelector('.sort-indicator');
+      if (th.dataset.sortKey === sortState.key && sortState.dir) {{
+        ind.textContent = sortState.dir === 1 ? '▲' : '▼';
+      }} else {{
+        ind.textContent = '';
+      }}
+    }});
+  }}
+
+  function updateClearChip() {{
+    var any = Object.keys(activeFilters).some(function (d) {{ return activeFilters[d].size > 0; }});
+    clearChip.classList.toggle('is-visible', any);
+  }}
+
   function render() {{
     var term = searchInput.value.trim().toLowerCase();
-    var visible = ROWS.filter(function (r) {{ return matchesRow(r, term); }});
+    var visible = applySort(ROWS.filter(function (r) {{ return matchesRow(r, term); }}));
     var groupBy = groupSelect.value;
     var html;
 
@@ -472,7 +664,9 @@ def render_html(data):
         if (!groups[key]) {{ groups[key] = []; order.push(key); }}
         groups[key].push(r);
       }});
-      order.sort(groupBy === 'pr_number' ? function (a, b) {{ return a - b; }} : undefined);
+      if (!sortState.key) {{
+        order.sort(groupBy === 'pr_number' ? function (a, b) {{ return a - b; }} : undefined);
+      }}
       html = order.map(function (key) {{
         var label = groupBy === 'pr_number' ? '#' + key : key;
         return groupHeaderHtml(label, groups[key].length) + groups[key].map(rowHtml).join('');
@@ -483,13 +677,27 @@ def render_html(data):
     emptyState.style.display = visible.length === 0 ? 'block' : 'none';
   }}
 
-  statusChips.forEach(function (chip) {{
+  dimChips.forEach(function (chip) {{
     chip.addEventListener('click', function () {{
-      statusChips.forEach(function (c) {{ c.classList.remove('is-active'); }});
-      chip.classList.add('is-active');
-      activeFilter = chip.dataset.filter;
+      var dim = chip.dataset.dim, val = chip.dataset.value;
+      var set = activeFilters[dim];
+      if (set.has(val)) {{
+        set.delete(val);
+        chip.classList.remove('is-active');
+      }} else {{
+        set.add(val);
+        chip.classList.add('is-active');
+      }}
+      updateClearChip();
       render();
     }});
+  }});
+
+  clearChip.addEventListener('click', function () {{
+    Object.keys(activeFilters).forEach(function (d) {{ activeFilters[d].clear(); }});
+    dimChips.forEach(function (c) {{ c.classList.remove('is-active'); }});
+    updateClearChip();
+    render();
   }});
 
   if (closedChip) {{
@@ -499,6 +707,23 @@ def render_html(data):
       render();
     }});
   }}
+
+  sortableHeaders.forEach(function (th) {{
+    th.addEventListener('click', function () {{
+      var key = th.dataset.sortKey;
+      if (sortState.key !== key) {{
+        sortState.key = key;
+        sortState.dir = 1;
+      }} else if (sortState.dir === 1) {{
+        sortState.dir = -1;
+      }} else {{
+        sortState.key = null;
+        sortState.dir = 0;
+      }}
+      updateSortIndicators();
+      render();
+    }});
+  }});
 
   searchInput.addEventListener('input', render);
   groupSelect.addEventListener('change', render);
