@@ -12,14 +12,20 @@ PROJECT_OWNER = "kubernetes"
 WEBSITE_REPO = "kubernetes/website"
 
 
+def run_gh(args):
+    result = subprocess.run(["gh"] + args, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"gh {' '.join(args)} failed:\n{result.stderr}", file=sys.stderr)
+        result.check_returncode()
+    return result
+
+
 def gh_json(args):
-    result = subprocess.run(["gh"] + args, capture_output=True, text=True, check=True)
-    return json.loads(result.stdout)
+    return json.loads(run_gh(args).stdout)
 
 
 def gh_text(args):
-    result = subprocess.run(["gh"] + args, capture_output=True, text=True, check=True)
-    return result.stdout
+    return run_gh(args).stdout
 
 
 FRONT_MATTER_RE = re.compile(r"^\+---\n((?:\+.*\n)*?)\+---\n", re.MULTILINE)
