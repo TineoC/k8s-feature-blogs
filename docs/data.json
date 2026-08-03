@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-03 13:48 UTC",
+  "generated_at": "2026-08-03 13:57 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 5,
-    "Review in progress": 7,
+    "Review in progress": 8,
     "Draft": 7,
     "No content (closed)": 2,
     "Draft (closed)": 1,
     "Review in progress (closed)": 1,
-    "Ready for review": 3,
+    "Ready for review": 2,
     "Placeholder": 3,
     "Placeholder (closed)": 3
   },
@@ -20,10 +20,16 @@
       "keps": [
         "Integrate CSI Volume attach limits with cluster autoscaler"
       ],
+      "sig": "sig-autoscaling",
+      "comms_editor": "kirti763",
+      "stage": "Beta",
+      "publish_date": "2025-0X-XXT09:00:00-08:00",
+      "published": "Draft",
       "additions": 9,
       "review_count": 1,
       "comment_count": 23,
-      "status": "No content"
+      "status": "No content",
+      "is_closed": false
     },
     {
       "pr_number": 56207,
@@ -32,10 +38,16 @@
       "keps": [
         "Report last used time on a PVC"
       ],
+      "sig": "sig-storage",
+      "comms_editor": "troy0820",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Not yet published",
       "additions": 197,
       "review_count": 7,
       "comment_count": 9,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56215,
@@ -50,10 +62,16 @@
         "WAS: Integrate Workload APIs with Job controller",
         "DRA: ResourceClaim Support for Workloads"
       ],
+      "sig": "sig-scheduling; sig-apps",
+      "comms_editor": "TineoC",
+      "stage": "Beta; Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 355,
       "review_count": 3,
       "comment_count": 11,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56229,
@@ -62,10 +80,16 @@
       "keps": [
         "EvictionRequest API"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "2026-XX-XX",
+      "published": "Draft",
       "additions": 12,
       "review_count": 1,
       "comment_count": 5,
-      "status": "No content (closed)"
+      "status": "No content (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56233,
@@ -74,10 +98,16 @@
       "keps": [
         "Enable Writable cgroups for unprivileged containers"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "XXXX-XX-XX",
+      "published": "Draft",
       "additions": 81,
       "review_count": 1,
       "comment_count": 6,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56234,
@@ -86,10 +116,16 @@
       "keps": [
         "Support Configurable Scaling Delay with Pod Resource Exposure"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "2026-XX-XX",
+      "published": "Draft",
       "additions": 12,
       "review_count": 1,
       "comment_count": 3,
-      "status": "No content"
+      "status": "No content",
+      "is_closed": false
     },
     {
       "pr_number": 56249,
@@ -98,10 +134,16 @@
       "keps": [
         "Support In place update pod resources alongside static cpu manager policy"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 92,
       "review_count": 2,
       "comment_count": 5,
-      "status": "Draft (closed)"
+      "status": "Draft (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56263,
@@ -110,10 +152,16 @@
       "keps": [
         "Add user fields to atomic write volumes"
       ],
+      "sig": "sig-storage",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 31,
       "review_count": 4,
       "comment_count": 8,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56267,
@@ -122,10 +170,16 @@
       "keps": [
         "Specialized Lifecycle Management"
       ],
+      "sig": "sig-node",
+      "comms_editor": "TineoC",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 172,
       "review_count": 13,
       "comment_count": 22,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56283,
@@ -134,10 +188,16 @@
       "keps": [
         "Support memory qos with cgroups v2"
       ],
+      "sig": "sig-node",
+      "comms_editor": "TineoC",
+      "stage": "Beta",
+      "publish_date": "2026-07-28",
+      "published": "Draft",
       "additions": 135,
       "review_count": 3,
       "comment_count": 6,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56290,
@@ -146,10 +206,16 @@
       "keps": [
         "Support scaling to/from zero pods for object/external metrics"
       ],
+      "sig": "sig-autoscaling",
+      "comms_editor": "RinkiyaKeDad",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 200,
       "review_count": 3,
       "comment_count": 7,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56297,
@@ -158,10 +224,16 @@
       "keps": [
         "KYAML"
       ],
+      "sig": "sig-cli",
+      "comms_editor": "",
+      "stage": "Stable",
+      "publish_date": "2026-08-26T10:30:00-08:00",
+      "published": "Not yet published",
       "additions": 203,
       "review_count": 2,
       "comment_count": 9,
-      "status": "Review in progress (closed)"
+      "status": "Review in progress (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56312,
@@ -171,10 +243,16 @@
         "ClusterTrustBundles (previously Trust Anchor Sets)",
         "Pod Certificates"
       ],
+      "sig": "sig-auth",
+      "comms_editor": "troy0820",
+      "stage": "Stable",
+      "publish_date": "2026-XX-XX",
+      "published": "Draft",
       "additions": 12,
       "review_count": 2,
       "comment_count": 9,
-      "status": "No content"
+      "status": "No content",
+      "is_closed": false
     },
     {
       "pr_number": 56316,
@@ -183,10 +261,16 @@
       "keps": [
         "etcd RangeStream"
       ],
+      "sig": "sig-etcd",
+      "comms_editor": "kirti763",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 76,
       "review_count": 2,
       "comment_count": 5,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56351,
@@ -200,10 +284,16 @@
         "DRA: Handle extended resource requests via DRA Driver",
         "DRA: List Types for Attributes"
       ],
+      "sig": "sig-scheduling; sig-node",
+      "comms_editor": "SwathiR03",
+      "stage": "Alpha; Stable",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 75,
       "review_count": 1,
       "comment_count": 15,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56360,
@@ -212,10 +302,16 @@
       "keps": [
         "Pod Level Resource Managers"
       ],
+      "sig": "sig-node",
+      "comms_editor": "SwathiR03",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 70,
       "review_count": 3,
       "comment_count": 8,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56401,
@@ -224,10 +320,16 @@
       "keps": [
         "API Server Authentication to Webhooks"
       ],
+      "sig": "sig-auth",
+      "comms_editor": "troy0820",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Not yet published",
       "additions": 0,
       "review_count": 0,
       "comment_count": 7,
-      "status": "No content"
+      "status": "No content",
+      "is_closed": false
     },
     {
       "pr_number": 56420,
@@ -236,10 +338,16 @@
       "keps": [
         "sig-node: Kubelet-in-UserNS, aka Rootless mode"
       ],
+      "sig": "sig-node",
+      "comms_editor": "RinkiyaKeDad",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Not yet published",
       "additions": 190,
       "review_count": 0,
       "comment_count": 5,
-      "status": "Ready for review"
+      "status": "Ready for review",
+      "is_closed": false
     },
     {
       "pr_number": 56422,
@@ -248,10 +356,16 @@
       "keps": [
         "Remove ipvs mode in kube-proxy"
       ],
+      "sig": "sig-network",
+      "comms_editor": "kirti763",
+      "stage": "Deprecation/Removal",
+      "publish_date": "2026-xx-xx",
+      "published": "Draft",
       "additions": 158,
       "review_count": 4,
       "comment_count": 10,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56425,
@@ -260,10 +374,16 @@
       "keps": [
         "PV Health Monitor"
       ],
+      "sig": "sig-storage",
+      "comms_editor": "RinkiyaKeDad",
+      "stage": "Alpha",
+      "publish_date": "2026-07-07",
+      "published": "Not yet published",
       "additions": 31,
       "review_count": 1,
       "comment_count": 9,
-      "status": "Draft"
+      "status": "Draft",
+      "is_closed": false
     },
     {
       "pr_number": 56432,
@@ -272,10 +392,16 @@
       "keps": [
         "Configuration for Per-Pod PID Limit"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 0,
       "review_count": 0,
       "comment_count": 4,
-      "status": "Placeholder"
+      "status": "Placeholder",
+      "is_closed": false
     },
     {
       "pr_number": 56436,
@@ -284,10 +410,16 @@
       "keps": [
         "Support TLS Credentials in gRPC Probe"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 0,
       "review_count": 0,
       "comment_count": 8,
-      "status": "Placeholder (closed)"
+      "status": "Placeholder (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56437,
@@ -296,10 +428,16 @@
       "keps": [
         "HTTP/2 cleartext (h2c) for container probes"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 0,
       "review_count": 0,
       "comment_count": 7,
-      "status": "Placeholder (closed)"
+      "status": "Placeholder (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56446,
@@ -308,10 +446,16 @@
       "keps": [
         "metrics.k8s.io API definition"
       ],
+      "sig": "sig-instrumentation",
+      "comms_editor": "SophiaUgo",
+      "stage": "Stable",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 99,
       "review_count": 0,
       "comment_count": 5,
-      "status": "Ready for review"
+      "status": "Ready for review",
+      "is_closed": false
     },
     {
       "pr_number": 56449,
@@ -320,10 +464,16 @@
       "keps": [
         "Pod level resources"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Stable",
+      "publish_date": "",
+      "published": "Not yet published",
       "additions": 0,
       "review_count": 0,
       "comment_count": 4,
-      "status": "No content"
+      "status": "No content",
+      "is_closed": false
     },
     {
       "pr_number": 56453,
@@ -332,10 +482,16 @@
       "keps": [
         "Conditional Authorization"
       ],
+      "sig": "sig-auth",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "2026-08-XXT12:00:00+03:00",
+      "published": "Draft",
       "additions": 13,
       "review_count": 0,
       "comment_count": 5,
-      "status": "No content (closed)"
+      "status": "No content (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56455,
@@ -344,10 +500,16 @@
       "keps": [
         "Native Histogram Support for Kubernetes Metrics"
       ],
+      "sig": "sig-instrumentation",
+      "comms_editor": "SophiaUgo",
+      "stage": "Beta",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 162,
       "review_count": 1,
       "comment_count": 6,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56457,
@@ -356,10 +518,16 @@
       "keps": [
         "Add bind mount options (noexec, nodev, nosuid) support on volumeMounts"
       ],
+      "sig": "sig-node",
+      "comms_editor": "SophiaUgo",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Not yet published",
       "additions": 0,
       "review_count": 0,
       "comment_count": 5,
-      "status": "Placeholder"
+      "status": "Placeholder",
+      "is_closed": false
     },
     {
       "pr_number": 56458,
@@ -369,10 +537,16 @@
         "Add stickyBit support for emptydir volumes",
         "Exec session identity propagation"
       ],
+      "sig": "sig-storage; sig-node",
+      "comms_editor": "RinkiyaKeDad",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 0,
       "review_count": 0,
       "comment_count": 7,
-      "status": "Placeholder"
+      "status": "Placeholder",
+      "is_closed": false
     },
     {
       "pr_number": 56461,
@@ -381,10 +555,16 @@
       "keps": [
         "Scheduler Preemption for In-Place Pod Resize"
       ],
+      "sig": "sig-scheduling",
+      "comms_editor": "SwathiR03",
+      "stage": "Alpha",
+      "publish_date": "XXXX-XX-XX",
+      "published": "Draft",
       "additions": 85,
       "review_count": 4,
       "comment_count": 12,
-      "status": "Review in progress"
+      "status": "Review in progress",
+      "is_closed": false
     },
     {
       "pr_number": 56462,
@@ -393,10 +573,16 @@
       "keps": [
         "Dynamic resize of memory-backed volumes"
       ],
+      "sig": "sig-node",
+      "comms_editor": "",
+      "stage": "Alpha",
+      "publish_date": "",
+      "published": "Draft",
       "additions": 0,
       "review_count": 0,
       "comment_count": 7,
-      "status": "Placeholder (closed)"
+      "status": "Placeholder (closed)",
+      "is_closed": true
     },
     {
       "pr_number": 56483,
@@ -405,10 +591,16 @@
       "keps": [
         "Move Storage Version Migrator in-tree"
       ],
+      "sig": "sig-api-machinery",
+      "comms_editor": "SwathiR03",
+      "stage": "Stable",
+      "publish_date": "XXX",
+      "published": "Not yet published",
       "additions": 103,
-      "review_count": 0,
+      "review_count": 1,
       "comment_count": 6,
-      "status": "Ready for review"
+      "status": "Review in progress",
+      "is_closed": false
     }
   ]
 }

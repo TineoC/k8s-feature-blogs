@@ -22,6 +22,23 @@ def gh_text(args):
     return result.stdout
 
 
+FRONT_MATTER_RE = re.compile(r"^\+---\n((?:\+.*\n)*?)\+---\n", re.MULTILINE)
+
+
+def parse_front_matter(diff_text):
+    """Pull date: / draft: out of the first added front-matter block in a PR diff."""
+    match = FRONT_MATTER_RE.search(diff_text)
+    if not match:
+        return {"date": "", "draft": False}
+    block = match.group(1)
+    date_match = re.search(r"^\+date:[ \t]*(\S+)[ \t]*$", block, re.MULTILINE)
+    draft_match = re.search(r"^\+draft:[ \t]*(true|false)[ \t]*$", block, re.MULTILINE | re.IGNORECASE)
+    return {
+        "date": date_match.group(1) if date_match else "",
+        "draft": bool(draft_match and draft_match.group(1).lower() == "true"),
+    }
+
+
 def classify(pr):
     state = pr["state"]
     additions = pr.get("additions", 0)
@@ -52,10 +69,18 @@ def main():
     ])["items"]
 
     pr_to_keps = defaultdict(list)
+    pr_to_sigs = defaultdict(list)
+    pr_to_editors = defaultdict(list)
+    pr_to_stages = defaultdict(list)
     for item in items:
         pr_url = item.get("blog PR")
-        if pr_url:
-            pr_to_keps[pr_url].append(item.get("title", "untitled"))
+        if not pr_url:
+            continue
+        pr_to_keps[pr_url].append(item.get("title", "untitled"))
+        for bucket, key in ((pr_to_sigs, "sIG"), (pr_to_editors, "comms Editor"), (pr_to_stages, "stage")):
+            value = item.get(key)
+            if value and value not in bucket[pr_url]:
+                bucket[pr_url].append(value)
 
     rows = []
     for pr_url, keps in sorted(pr_to_keps.items(), key=lambda kv: int(re.search(r"/pull/(\d+)", kv[0]).group(1))):
@@ -67,15 +92,30 @@ def main():
         detail["reviewCount"] = len(detail.get("reviews", []))
         detail["commentCount"] = len(detail.get("comments", []))
         status = classify(detail)
+
+        front_matter = parse_front_matter(gh_text(["pr", "diff", number, "--repo", WEBSITE_REPO]))
+        if detail["state"] == "MERGED":
+            published = "Published"
+        elif front_matter["draft"] or detail.get("isDraft"):
+            published = "Draft"
+        else:
+            published = "Not yet published"
+
         rows.append({
             "pr_number": int(number),
             "pr_url": pr_url,
             "pr_title": detail["title"],
             "keps": keps,
+            "sig": "; ".join(pr_to_sigs.get(pr_url, [])),
+            "comms_editor": "; ".join(pr_to_editors.get(pr_url, [])),
+            "stage": "; ".join(pr_to_stages.get(pr_url, [])),
+            "publish_date": front_matter["date"],
+            "published": published,
             "additions": detail.get("additions", 0),
             "review_count": detail["reviewCount"],
             "comment_count": detail["commentCount"],
             "status": status,
+            "is_closed": detail["state"] == "CLOSED",
         })
 
     summary = defaultdict(int)
@@ -129,34 +169,49 @@ def status_dot_color(status):
 
 
 def render_html(data):
-    rows_sorted = sorted(data["rows"], key=lambda r: (status_sort_key(r["status"]), r["pr_number"]))
+    all_rows = sorted(data["rows"], key=lambda r: (status_sort_key(r["status"]), r["pr_number"]))
+    open_rows = [r for r in all_rows if not r.get("is_closed")]
+    closed_count = len(all_rows) - len(open_rows)
 
-    statuses_present = sorted(data["summary"].keys(), key=status_sort_key)
+    # Status chips/summary reflect only open PRs — closed ones don't count for status tracking.
+    open_summary = defaultdict(int)
+    for r in open_rows:
+        open_summary[r["status"]] += 1
+    statuses_present = sorted(open_summary.keys(), key=status_sort_key)
 
     filter_buttons = '<button class="chip is-active" data-filter="all" type="button">All ({})</button>'.format(
-        len(rows_sorted)
+        len(open_rows)
     ) + "".join(
         f'<button class="chip" data-filter="{slugify(status)}" type="button">'
-        f'<span class="dot" style="background:{status_dot_color(status)}"></span>{status} ({data["summary"][status]})</button>'
+        f'<span class="dot" style="background:{status_dot_color(status)}"></span>{status} ({open_summary[status]})</button>'
         for status in statuses_present
+    ) + (
+        f'<button class="chip chip-closed" data-filter="__closed__" type="button">'
+        f'Show closed ({closed_count})</button>' if closed_count else ""
     )
 
     summary_cells = "".join(
         f'<div class="stat"><div class="stat-num">{count}</div><div class="stat-label">'
         f'<span class="dot" style="background:{status_dot_color(status)}"></span>{status}</div></div>'
-        for status, count in sorted(data["summary"].items(), key=lambda kv: status_sort_key(kv[0]))
+        for status, count in sorted(open_summary.items(), key=lambda kv: status_sort_key(kv[0]))
     )
 
-    table_rows = "".join(
-        f'''<tr class="status-{slugify(r["status"])}" data-status="{slugify(r["status"])}" data-search="{(r['pr_title'] + ' ' + ' '.join(r['keps'])).lower().replace('"', '&quot;')}">
+    def render_row(r):
+        search_blob = " ".join([r["pr_title"], *r["keps"], r["sig"], r["comms_editor"]]).lower().replace('"', "&quot;")
+        return f'''<tr class="status-{slugify(r["status"])}{' is-closed' if r.get('is_closed') else ''}" data-status="{slugify(r["status"])}" data-closed="{'1' if r.get('is_closed') else '0'}" data-search="{search_blob}">
       <td class="mono"><a href="{r['pr_url']}" target="_blank" rel="noopener">#{r['pr_number']}</a></td>
       <td>{"; ".join(r['keps'])}</td>
+      <td>{r['sig'] or '&mdash;'}</td>
+      <td>{r['comms_editor'] or '&mdash;'}</td>
+      <td>{r['stage'] or '&mdash;'}</td>
       <td><span class="status-badge"><span class="dot" style="background:{status_dot_color(r['status'])}"></span>{r['status']}</span></td>
+      <td class="mono">{r['publish_date'] or '&mdash;'}</td>
+      <td>{r['published']}</td>
       <td class="mono num">{r['additions']}</td>
       <td class="mono num">{r['review_count']} / {r['comment_count']}</td>
     </tr>'''
-        for r in rows_sorted
-    )
+
+    table_rows = "".join(render_row(r) for r in all_rows)
 
     return f"""<!doctype html>
 <html lang="en">
@@ -227,6 +282,9 @@ def render_html(data):
   .chip:hover {{ border-color: var(--color-accent); }}
   .chip:focus-visible {{ outline: 2px solid var(--color-ring); outline-offset: 2px; }}
   .chip.is-active {{ background: var(--color-accent); color: #05220f; border-color: var(--color-accent); font-weight: 600; }}
+  .chip-closed {{ margin-left: auto; opacity: 0.75; }}
+  .chip-closed.is-active {{ background: var(--color-destructive); border-color: var(--color-destructive); color: #fff; opacity: 1; }}
+  tr.is-closed {{ opacity: 0.7; }}
 
   .search {{
     margin-left: auto; font: inherit; font-size: 0.85rem; min-width: 220px;
@@ -270,7 +328,7 @@ def render_html(data):
 
 <div class="table-wrap">
 <table id="pr-table">
-  <thead><tr><th>PR</th><th>KEP(s)</th><th>Status</th><th class="num">Lines added</th><th class="num">Reviews / Comments</th></tr></thead>
+  <thead><tr><th>PR</th><th>KEP(s)</th><th>SIG</th><th>Comms Editor</th><th>Stage</th><th>Status</th><th>Publish date</th><th>Published</th><th class="num">Lines added</th><th class="num">Reviews / Comments</th></tr></thead>
   <tbody>{table_rows}</tbody>
 </table>
 </div>
@@ -278,16 +336,20 @@ def render_html(data):
 
 <script>
 (function () {{
-  var chips = document.querySelectorAll('.chip');
+  var statusChips = document.querySelectorAll('.chip:not(.chip-closed)');
+  var closedChip = document.querySelector('.chip-closed');
   var searchInput = document.getElementById('search-input');
   var rows = document.querySelectorAll('#pr-table tbody tr');
   var emptyState = document.getElementById('empty-state');
   var activeFilter = 'all';
+  var showClosed = false;
 
   function applyFilters() {{
     var term = searchInput.value.trim().toLowerCase();
     var visibleCount = 0;
     rows.forEach(function (row) {{
+      var isClosed = row.dataset.closed === '1';
+      if (isClosed && !showClosed) {{ row.hidden = true; return; }}
       var matchesStatus = activeFilter === 'all' || row.dataset.status === activeFilter;
       var matchesSearch = !term || row.dataset.search.indexOf(term) !== -1;
       var visible = matchesStatus && matchesSearch;
@@ -297,16 +359,25 @@ def render_html(data):
     emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
   }}
 
-  chips.forEach(function (chip) {{
+  statusChips.forEach(function (chip) {{
     chip.addEventListener('click', function () {{
-      chips.forEach(function (c) {{ c.classList.remove('is-active'); }});
+      statusChips.forEach(function (c) {{ c.classList.remove('is-active'); }});
       chip.classList.add('is-active');
       activeFilter = chip.dataset.filter;
       applyFilters();
     }});
   }});
 
+  if (closedChip) {{
+    closedChip.addEventListener('click', function () {{
+      showClosed = !showClosed;
+      closedChip.classList.toggle('is-active', showClosed);
+      applyFilters();
+    }});
+  }}
+
   searchInput.addEventListener('input', applyFilters);
+  applyFilters();
 }})();
 </script>
 </body>
