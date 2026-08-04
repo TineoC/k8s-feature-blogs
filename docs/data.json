@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-04 13:29 UTC",
+  "generated_at": "2026-08-04 19:14 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 3,
-    "Review in progress": 11,
-    "Ready for review": 2,
+    "Review in progress": 12,
     "Draft": 2,
+    "Ready for review": 1,
     "Placeholder": 2
   },
   "rows": [
@@ -143,7 +143,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 135,
-      "review_count": 3,
+      "review_count": 4,
       "comment_count": 6,
       "status": "Review in progress",
       "is_closed": false
@@ -332,11 +332,11 @@
       "comms_editor": "RinkiyaKeDad",
       "stage": "Beta",
       "publish_date": "",
-      "published": "Not yet published",
-      "additions": 190,
-      "review_count": 0,
+      "published": "Draft",
+      "additions": 192,
+      "review_count": 6,
       "comment_count": 5,
-      "status": "Ready for review",
+      "status": "Review in progress",
       "is_closed": false
     },
     {
@@ -492,10 +492,10 @@
       "sig": "sig-scheduling",
       "comms_editor": "SwathiR03",
       "stage": "Alpha",
-      "publish_date": "XXXX-XX-XX",
+      "publish_date": "",
       "published": "Draft",
-      "additions": 86,
-      "review_count": 10,
+      "additions": 85,
+      "review_count": 11,
       "comment_count": 13,
       "status": "Review in progress",
       "is_closed": false
@@ -518,7 +518,7 @@
       "publish_date": "XXX",
       "published": "Not yet published",
       "additions": 103,
-      "review_count": 3,
+      "review_count": 4,
       "comment_count": 6,
       "status": "Review in progress",
       "is_closed": false
