@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05 08:10 UTC",
+  "generated_at": "2026-08-05 13:27 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 3,
@@ -119,9 +119,9 @@
       "stage": "Alpha",
       "publish_date": "",
       "published": "Draft",
-      "additions": 172,
-      "review_count": 13,
-      "comment_count": 22,
+      "additions": 178,
+      "review_count": 14,
+      "comment_count": 24,
       "status": "Review in progress",
       "is_closed": false
     },
