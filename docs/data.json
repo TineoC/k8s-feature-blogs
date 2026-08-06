@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-06 13:26 UTC",
+  "generated_at": "2026-08-06 22:43 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
-    "No content": 3,
+    "No content": 2,
     "Review in progress": 12,
     "Draft": 2,
     "Ready for review": 1,
@@ -167,7 +167,7 @@
       "published": "Draft",
       "additions": 200,
       "review_count": 6,
-      "comment_count": 7,
+      "comment_count": 8,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -291,29 +291,6 @@
       "review_count": 3,
       "comment_count": 8,
       "status": "Review in progress",
-      "is_closed": false
-    },
-    {
-      "pr_number": 56401,
-      "pr_url": "https://github.com/kubernetes/website/pull/56401",
-      "pr_title": "[WIP] KEP-6060: Blog Entry",
-      "keps": [
-        {
-          "number": "6060",
-          "title": "API Server Authentication to Webhooks",
-          "tracking_url": "https://github.com/kubernetes/enhancements/issues/6060",
-          "docs_pr": "https://github.com/kubernetes/website/pull/56400"
-        }
-      ],
-      "sig": "sig-auth",
-      "comms_editor": "troy0820",
-      "stage": "Alpha",
-      "publish_date": "",
-      "published": "Not yet published",
-      "additions": 0,
-      "review_count": 0,
-      "comment_count": 7,
-      "status": "No content",
       "is_closed": false
     },
     {
