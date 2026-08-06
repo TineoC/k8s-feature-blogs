@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06 08:09 UTC",
+  "generated_at": "2026-08-06 13:26 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 3,
@@ -279,7 +279,7 @@
           "number": "5526",
           "title": "Pod Level Resource Managers",
           "tracking_url": "https://github.com/kubernetes/enhancements/issues/5526",
-          "docs_pr": "https://github.com/kubernetes/website/pull/56359"
+          "docs_pr": "https://github.com/kubernetes/website/pull/56828 | https://github.com/kubernetes/website/pull/56359"
         }
       ],
       "sig": "sig-node",
