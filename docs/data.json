@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-07 06:56 UTC",
+  "generated_at": "2026-08-07 12:33 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content": 2,
     "Review in progress": 12,
     "Draft": 2,
-    "Ready for review": 1,
-    "Placeholder": 2
+    "Ready for review": 2,
+    "Placeholder": 1
   },
   "rows": [
     {
@@ -403,7 +403,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 162,
-      "review_count": 3,
+      "review_count": 4,
       "comment_count": 6,
       "status": "Review in progress",
       "is_closed": false
@@ -411,7 +411,7 @@
     {
       "pr_number": 56457,
       "pr_url": "https://github.com/kubernetes/website/pull/56457",
-      "pr_title": "[Placeholder] Blog for KEP-5855: Add bind mount options to VolumeMount",
+      "pr_title": "Feature blog: Hardening Container Storage in Kubernetes v1.37",
       "keps": [
         {
           "number": "5855",
@@ -423,12 +423,12 @@
       "sig": "sig-node",
       "comms_editor": "SophiaUgo",
       "stage": "Alpha",
-      "publish_date": "",
-      "published": "Not yet published",
-      "additions": 0,
+      "publish_date": "2026-08-07",
+      "published": "Draft",
+      "additions": 200,
       "review_count": 0,
-      "comment_count": 5,
-      "status": "Placeholder",
+      "comment_count": 6,
+      "status": "Ready for review",
       "is_closed": false
     },
     {
