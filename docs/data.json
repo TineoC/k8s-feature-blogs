@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10 12:36 UTC",
+  "generated_at": "2026-08-10 18:37 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content (closed)": 1,
@@ -475,11 +475,11 @@
       "sig": "sig-api-machinery",
       "comms_editor": "SwathiR03",
       "stage": "Stable",
-      "publish_date": "XXX",
-      "published": "Not yet published",
-      "additions": 103,
-      "review_count": 4,
-      "comment_count": 6,
+      "publish_date": "",
+      "published": "Draft",
+      "additions": 117,
+      "review_count": 20,
+      "comment_count": 7,
       "status": "Review in progress",
       "is_closed": false
     }
