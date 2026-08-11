@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-11 12:34 UTC",
+  "generated_at": "2026-08-11 18:41 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content (closed)": 1,
-    "Review in progress": 13,
-    "Draft": 3,
+    "Review in progress": 14,
+    "Draft": 2,
     "Ready for review": 1
   },
   "rows": [
@@ -166,14 +166,14 @@
       "published": "Draft",
       "additions": 200,
       "review_count": 6,
-      "comment_count": 8,
+      "comment_count": 9,
       "status": "Review in progress",
       "is_closed": false
     },
     {
       "pr_number": 56312,
       "pr_url": "https://github.com/kubernetes/website/pull/56312",
-      "pr_title": "[WIP] Pod Certificate / Cluster Trust Bundleblog Blog",
+      "pr_title": "Pod Certificate / Cluster Trust Bundleblog Blog",
       "keps": [
         {
           "number": "3257",
@@ -195,8 +195,8 @@
       "published": "Draft",
       "additions": 213,
       "review_count": 4,
-      "comment_count": 10,
-      "status": "Draft",
+      "comment_count": 12,
+      "status": "Review in progress",
       "is_closed": false
     },
     {
