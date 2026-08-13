@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-08-12 18:42 UTC",
+  "generated_at": "2026-08-13 00:47 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content (closed)": 1,
-    "Review in progress": 14,
+    "Review in progress": 12,
     "Draft": 2,
+    "Merged": 2,
     "Ready for review": 1
   },
   "rows": [
@@ -217,8 +218,8 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 82,
-      "review_count": 2,
-      "comment_count": 6,
+      "review_count": 3,
+      "comment_count": 7,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -264,7 +265,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 75,
-      "review_count": 2,
+      "review_count": 3,
       "comment_count": 15,
       "status": "Review in progress",
       "is_closed": false
@@ -377,11 +378,11 @@
       "comms_editor": "SophiaUgo",
       "stage": "Stable",
       "publish_date": "",
-      "published": "Draft",
+      "published": "Published",
       "additions": 99,
-      "review_count": 10,
+      "review_count": 14,
       "comment_count": 10,
-      "status": "Review in progress",
+      "status": "Merged",
       "is_closed": false
     },
     {
@@ -475,11 +476,11 @@
       "comms_editor": "SwathiR03",
       "stage": "Stable",
       "publish_date": "",
-      "published": "Draft",
+      "published": "Published",
       "additions": 117,
-      "review_count": 20,
-      "comment_count": 7,
-      "status": "Review in progress",
+      "review_count": 21,
+      "comment_count": 10,
+      "status": "Merged",
       "is_closed": false
     }
   ]
