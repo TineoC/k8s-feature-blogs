@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18 12:17 UTC",
+  "generated_at": "2026-08-18 18:17 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content (closed)": 1,
@@ -95,8 +95,8 @@
       "stage": "Beta; Alpha",
       "publish_date": "",
       "published": "Draft",
-      "additions": 486,
-      "review_count": 8,
+      "additions": 485,
+      "review_count": 11,
       "comment_count": 11,
       "status": "Review in progress",
       "is_closed": false
@@ -119,7 +119,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 181,
-      "review_count": 16,
+      "review_count": 17,
       "comment_count": 24,
       "status": "Review in progress",
       "is_closed": false
@@ -142,8 +142,8 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 137,
-      "review_count": 5,
-      "comment_count": 6,
+      "review_count": 6,
+      "comment_count": 7,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -194,7 +194,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 218,
-      "review_count": 4,
+      "review_count": 5,
       "comment_count": 17,
       "status": "Review in progress",
       "is_closed": false
@@ -264,8 +264,8 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 136,
-      "review_count": 21,
-      "comment_count": 17,
+      "review_count": 28,
+      "comment_count": 18,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -401,8 +401,8 @@
       "stage": "Beta",
       "publish_date": "",
       "published": "Draft",
-      "additions": 162,
-      "review_count": 5,
+      "additions": 167,
+      "review_count": 11,
       "comment_count": 6,
       "status": "Review in progress",
       "is_closed": false
@@ -428,11 +428,11 @@
       "sig": "sig-storage; sig-node",
       "comms_editor": "troy0820",
       "stage": "Alpha",
-      "publish_date": "2026-08-07",
+      "publish_date": "",
       "published": "Draft",
-      "additions": 200,
-      "review_count": 3,
-      "comment_count": 6,
+      "additions": 199,
+      "review_count": 17,
+      "comment_count": 10,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -454,7 +454,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 85,
-      "review_count": 11,
+      "review_count": 14,
       "comment_count": 15,
       "status": "Review in progress",
       "is_closed": false
