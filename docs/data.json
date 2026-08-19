@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19 12:17 UTC",
+  "generated_at": "2026-08-19 18:14 UTC",
   "project_url": "https://github.com/orgs/kubernetes/projects/264/views/5",
   "summary": {
     "No content (closed)": 1,
@@ -118,7 +118,7 @@
       "stage": "Alpha",
       "publish_date": "",
       "published": "Draft",
-      "additions": 181,
+      "additions": 184,
       "review_count": 17,
       "comment_count": 24,
       "status": "Review in progress",
@@ -195,7 +195,7 @@
       "published": "Draft",
       "additions": 218,
       "review_count": 5,
-      "comment_count": 17,
+      "comment_count": 18,
       "status": "Review in progress",
       "is_closed": false
     },
@@ -310,7 +310,7 @@
       "publish_date": "",
       "published": "Draft",
       "additions": 192,
-      "review_count": 6,
+      "review_count": 7,
       "comment_count": 5,
       "status": "Review in progress",
       "is_closed": false
@@ -453,9 +453,9 @@
       "stage": "Alpha",
       "publish_date": "",
       "published": "Draft",
-      "additions": 85,
-      "review_count": 14,
-      "comment_count": 15,
+      "additions": 89,
+      "review_count": 17,
+      "comment_count": 18,
       "status": "Review in progress",
       "is_closed": false
     },
